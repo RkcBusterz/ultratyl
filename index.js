@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const discordauth = require("./discordauth")
 const port = 3000;
 
 // Serve static files from the 'routes' directory
@@ -10,8 +11,9 @@ app.use(express.static('routes'));
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'routes', 'login.html'));
 });
-app.get('/callback',(req,res)=>{
-  
+app.get('/callback',async (req,res)=>{
+const userinfo = await discordauth.fetchUser(req.query.code)
+res.send(userinfo)
 
 
 

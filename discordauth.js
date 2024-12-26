@@ -1,6 +1,6 @@
-const config = require('./settings.json');
+const config = require("./settings.json")
 
-export const getAccessToken = async (code)=>{
+const getAccessToken = async (code)=>{
 
     const data = new URLSearchParams({
         grant_type: 'authorization_code',
@@ -18,9 +18,10 @@ export const getAccessToken = async (code)=>{
       });
       var resjson = await response.json()
       return resjson.access_token
+      
 }
 
-export const fetchUser = async (code) => {
+const fetchUser = async (code) => {
 
     const data = await getAccessToken(code)
     try {
@@ -43,4 +44,4 @@ export const fetchUser = async (code) => {
   };
   
 
-fetchUser("XwA3oabrSHEaZhh19rRNtxdIynbjnl").then(data=>{console.log(data)})
+  module.exports = {fetchUser, getAccessToken, config}
