@@ -11,7 +11,7 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'routes', 'login.html'));
 });
 app.get('/callback',(req,res)=>{
-  res.send(req.query.code)
+  
 
 
 
