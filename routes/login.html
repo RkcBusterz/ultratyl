@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body class="bg-black h-screen w-screen flex justify-center align-middle items-center">
+    <div class="bg-blue-400 shadow-2xl shadow-blue-400 w-52 h-20 text-xl text-center justify-center items-center align-middle flex rounded-3xl hover:bg-white hover:shadow-white hover:text-blue-400 text-white" onclick="discord()"><p class="pointer-events-none">Login with Discord</p></div>
+</body>
+<script>
+    function discord(){
+window.open("https://discord.com/oauth2/authorize?client_id=1321783630690779159&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+email","_parent")}
+</script>
+</html>
