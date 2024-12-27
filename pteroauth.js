@@ -21,7 +21,7 @@ try{
 
 const addUser = async (data) =>{
 if(getUser(data.email) == undefined){
-    
+
 }else{
     const response = await fetch(config.Pterodactyl.panel_url+"/api/application/users",{
         method: "POST",
@@ -39,9 +39,8 @@ if(getUser(data.email) == undefined){
             password: crypto.randomBytes(16).toString('hex'),
             root_admin: false,
             language: "en"
-        })
-    }
-    )}
+        })})
+    const resjson = await response.json()
+    return resjson
 }
-
-addUser({email: "hacker6969@rkcmails.net", username: "Hacker6969"})
+}
