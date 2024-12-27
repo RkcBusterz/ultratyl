@@ -1,6 +1,6 @@
 const config = require("./settings.json");
 
-var getUser = async (email) => {
+const getUser = async (email) => {
   const response = await fetch(config.Pterodactyl.panel_url + "/api/application/users", {
     method: "GET",
     headers: {
