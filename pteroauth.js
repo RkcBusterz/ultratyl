@@ -44,3 +44,5 @@ if(getUser(data.email) == undefined){
     return resjson
 }
 }
+
+module.exports = {addUser,config,getUser,crypto,}
