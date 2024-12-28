@@ -45,4 +45,55 @@ if(getUser(data.email) == undefined){
 }
 }
 
+const createServer = async (server) =>{
+const allocation = Math.floor(Math.random() * 30)
+console.log(allocation)
+
+if(server.memory <= config.Pterodactyl.specifications.memory && server.cpu <= config.Pterodactyl.specifications.cpu && server.storage <= config.Pterodactyl.specifications.storage){
+
+const data = await fetch(config.Pterodactyl.panel_url+"/api/application/servers", {
+  method: "POST",
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer "+config.Pterodactyl.api_key
+  },
+  credentials: "include",
+  body: JSON.stringify({
+    name: server.name,
+    user: server.user,
+    egg: 1,
+    docker_image: "ghcr.io/pterodactyl/yolks:java_21",
+    startup: "java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}",
+    environment: {
+      PAPER_VERSION: "latest",
+      SERVER_JARFILE: "server.jar",
+      BUILD_NUMBER : "latest"
+    },
+    limits: {
+      memory: server.memory,
+      swap: 0,
+      disk: server.storage,
+      io: 500,
+      cpu: server.cpu
+    },
+    feature_limits: {
+      databases: 5,
+      backups: 1
+    },
+    allocation: {
+      default: allocation
+    }
+  })
+})
+
+const datajson = await data.json()
+return datajson
+}else{return "Your input exceeds our current limits"}
+
+}
+
+
+
+
 module.exports = {addUser,config,getUser,crypto,}
