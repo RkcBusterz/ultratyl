@@ -93,7 +93,30 @@ return datajson
 
 }
 
+async function getServers() {
+  const url = config.Pterodactyl.panel_url+"/api/application/servers";
+  const options = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+config.Pterodactyl.api_key
+    },
+    credentials: 'include',
+  };
 
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data.data); 
+    return data; 
+  } catch (error) {
+    console.error('Fetch error:', error);
+  }
+}
 
 
 module.exports = {addUser,config,getUser,crypto,}
