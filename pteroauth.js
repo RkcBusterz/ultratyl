@@ -127,4 +127,4 @@ async function getServers(data) {
   }
 }
 
-module.exports = {addUser,config,getUser,crypto,}
+module.exports = {addUser,config,getUser,crypto,getServers,createServer}
