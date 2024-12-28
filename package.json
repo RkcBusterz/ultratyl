@@ -12,6 +12,7 @@
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "crypto": "^1.0.1",
     "express": "^4.21.2",
     "sqlite3": "^5.1.7"

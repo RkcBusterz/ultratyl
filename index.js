@@ -4,8 +4,9 @@ const crypto = require("crypto");
 const sqlite3 = require("sqlite3");
 const discordauth = require("./discordauth");
 const pteroauth = require("./pteroauth");
-
+const cookieParser = require("cookie-parser")
 const app = express();
+app.use(cookieParser())
 const port = 3000;
 const database = new sqlite3.Database("logins.db");
 
@@ -29,8 +30,22 @@ const getUser = (email) => {
   });
 };
 
-
-
+const getUserBySession = (session) => {
+  return new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE session_id = ?",[session], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+};
+const checkSession = async (session) =>{
+  const user = await getUserBySession(session);
+  if(user.length == 0){
+    return false
+  }else{
+    return true
+  }
+}
 
 const AddOrGetUser = async (code) => {
 
@@ -66,6 +81,14 @@ try{
 
   
 };
+app.get('/',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.send("You are logged in")
+  }else{
+    res.redirect("/login")
+  }
+})
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'routes', 'login.html'));
@@ -76,13 +99,18 @@ app.get('/callback', async (req, res) => {
 try{
 const session = await AddOrGetUser(req.query.code)
 res.cookie("session_id",session)
-res.send("GOOGLE")
+res.redirect("/")
 }catch{
 console.error("Cant get session id")
 }
 });
-
-
+app.get('/create',(req,res)=>{
+  const memory = req.query.memory;
+  const cpu = req.query.cpu;
+  const storage = req.query.storage
+  getUserBySession(req.cookies.session_id).then(data=>res.send(data))
+  
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
