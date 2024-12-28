@@ -47,7 +47,7 @@ if(getUser(data.email) == undefined){
 
 const createServer = async (server) =>{
 const allocation = Math.floor(Math.random() * 30)
-console.log(allocation)
+
 
 if(server.memory <= config.Pterodactyl.specifications.memory && server.cpu <= config.Pterodactyl.specifications.cpu && server.storage <= config.Pterodactyl.specifications.storage){
 
@@ -94,7 +94,7 @@ return datajson
 }
 
 async function getServers(data) {
-  console.log(`${data.email} and ${data.id}`)
+
   const url = config.Pterodactyl.panel_url+"/api/application/servers";
   var userid;
   if(data.id == undefined && data.email != undefined){
