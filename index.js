@@ -97,7 +97,7 @@ app.get('/dash',async (req,res)=>{
     res.redirect("/login");
   }
 })
-app.get('/login', (req, res) => {
+app.get('/login', async (req, res) => {
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.redirect("/dashboard");
