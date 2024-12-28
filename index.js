@@ -84,14 +84,27 @@ try{
 app.get('/',async (req,res)=>{
   const session = await checkSession(req.cookies.session_id);
   if(session){
-    res.send("You are logged in");
+    res.redirect('/dash')
   }else{
     res.redirect("/login");
   }
 })
-
+app.get('/dash',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'dashboard.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'routes', 'login.html'));
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.redirect("/dashboard");
+
+  }else{
+    res.sendFile(path.join(__dirname, 'routes', 'login.html'));
+  }
 });
 
 app.get('/callback', async (req, res) => {
@@ -116,12 +129,20 @@ app.get('/create',async (req,res)=>{
   const servercount = servers.length
   if(servercount == 0){
   pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>res.send(response));
-  }else{res.send("You already own 1 server, get lost fucker")}
+  }else{res.send("You already own 1 server")}
   }catch(err){
     console.error(err)
   }
 })
-
+app.get('/getservers',async (req,res) =>{
+try{
+  const user = await getUserBySession(req.cookies.session_id);
+  const servers = await pteroauth.getServers({id:user[0].pteroid})
+  res.json(servers)
+}catch(err){
+  console.error(err)
+}
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
