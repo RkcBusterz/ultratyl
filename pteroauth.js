@@ -93,10 +93,16 @@ return datajson
 
 }
 
-async function getServers(email) {
+async function getServers(data) {
+  console.log(`${data.email} and ${data.id}`)
   const url = config.Pterodactyl.panel_url+"/api/application/servers";
-  const user = await getUser(email)
-  const userid = user.id
+  var userid;
+  if(data.id == undefined && data.email != undefined){
+  const user = await getUser(data.email)
+   userid = user.id
+  }else{
+     userid = data.id;
+  }
   const options = {
     method: 'GET',
     headers: {
