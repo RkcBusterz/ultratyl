@@ -41,9 +41,9 @@ const getUserBySession = (session) => {
 const checkSession = async (session) =>{
   const user = await getUserBySession(session);
   if(user.length == 0){
-    return false
+    return false;
   }else{
-    return true
+    return true;
   }
 }
 
@@ -72,11 +72,11 @@ try{
   );
   return session_id;
 }else {
-  return user[0].session_id
+  return user[0].session_id;
 }
   
 }catch{
-  console.error("Invalid code")
+  console.error("Invalid code");
 }
 
   
@@ -84,9 +84,9 @@ try{
 app.get('/',async (req,res)=>{
   const session = await checkSession(req.cookies.session_id);
   if(session){
-    res.send("You are logged in")
+    res.send("You are logged in");
   }else{
-    res.redirect("/login")
+    res.redirect("/login");
   }
 })
 
@@ -97,19 +97,29 @@ app.get('/login', (req, res) => {
 app.get('/callback', async (req, res) => {
 
 try{
-const session = await AddOrGetUser(req.query.code)
-res.cookie("session_id",session)
-res.redirect("/")
+const session = await AddOrGetUser(req.query.code);
+res.cookie("session_id",session);
+res.redirect("/");
 }catch{
-console.error("Cant get session id")
+console.error("Cant get session id");
 }
 });
-app.get('/create',(req,res)=>{
+app.get('/create',async (req,res)=>{
+  try{
   const memory = req.query.memory;
   const cpu = req.query.cpu;
   const storage = req.query.storage
-  getUserBySession(req.cookies.session_id).then(data=>res.send(data))
-  
+  const name = req.query.name;
+  const user = await getUserBySession(req.cookies.session_id);
+  const userid = user[0].pteroid
+  const servers = await pteroauth.getServers({id:userid})
+  const servercount = servers.length
+  if(servercount == 0){
+  pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>res.send(response));
+  }else{res.send("You already own 1 server, get lost fucker")}
+  }catch(err){
+    console.error(err)
+  }
 })
 
 app.listen(port, () => {
