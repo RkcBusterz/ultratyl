@@ -93,8 +93,10 @@ return datajson
 
 }
 
-async function getServers() {
+async function getServers(email) {
   const url = config.Pterodactyl.panel_url+"/api/application/servers";
+  const user = await getUser(email)
+  const userid = user.id
   const options = {
     method: 'GET',
     headers: {
@@ -111,12 +113,13 @@ async function getServers() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log(data.data); 
+    const specificServers = await data.data.filter(server => server.attributes.user === userid);
+    return specificServers
     return data; 
   } catch (error) {
-    console.error('Fetch error:', error);
+    return error
   }
 }
-
+getServers('ytboymcultra@gmail.com')
 
 module.exports = {addUser,config,getUser,crypto,}
