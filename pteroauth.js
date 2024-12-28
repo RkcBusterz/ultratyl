@@ -120,6 +120,5 @@ async function getServers(email) {
     return error
   }
 }
-getServers('ytboymcultra@gmail.com')
 
 module.exports = {addUser,config,getUser,crypto,}
