@@ -34,7 +34,7 @@ if(getUser(data.email) == undefined){
             external_id: data.username,
             username: data.username,
             email: data.email,
-            first_name: data.username,
+            first_name: data.global_name,
             last_name: "#",
             password: crypto.randomBytes(16).toString('hex'),
             root_admin: false,

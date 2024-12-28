@@ -1,7 +1,7 @@
 const config = require("./settings.json")
 
 const getAccessToken = async (code)=>{
-
+try{
     const data = new URLSearchParams({
         grant_type: 'authorization_code',
         code: code,
@@ -18,11 +18,13 @@ const getAccessToken = async (code)=>{
       });
       var resjson = await response.json()
       return resjson.access_token
-      
+    }catch{
+      console.error("Invalid code")
+    }
 }
 
 const fetchUser = async (code) => {
-
+try{
     const data = await getAccessToken(code)
     try {
       const response = await fetch(`https://discordapp.com/api/users/@me`, {
@@ -41,6 +43,9 @@ const fetchUser = async (code) => {
     } catch (error) {
       console.error('Error fetching user:', error);
     }
+}catch{
+  console.error("Invalid access_code")
+}
   };
   
 
