@@ -127,4 +127,34 @@ async function getServers(data) {
   }
 }
 
-module.exports = {addUser,config,getUser,crypto,getServers,createServer}
+const changePassword = async (email) => {
+  const newpass = crypto.randomBytes(8).toString('hex')
+  const user = await getUser(email);
+  const id = user.id;
+  fetch(config.Pterodactyl.panel_url+"/api/application/users/"+id, {
+    method: "PATCH",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+config.Pterodactyl.api_key
+    },
+    credentials: "include",  // Ensures the session cookie is sent
+    body: JSON.stringify({
+      email: user.email,
+      username: user.username,
+      first_name : user.first_name,
+      last_name: user.last_name,
+      password: newpass
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+  return {newpass: newpass};
+}
+
+module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword}
