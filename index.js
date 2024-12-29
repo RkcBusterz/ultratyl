@@ -4,7 +4,9 @@ const crypto = require("crypto");
 const sqlite3 = require("sqlite3");
 const discordauth = require("./discordauth");
 const pteroauth = require("./pteroauth");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+const config = require("./settings.json")
+
 const app = express();
 app.use(cookieParser())
 const port = 3000;
@@ -143,6 +145,10 @@ try{
   console.error(err)
 }
 })
+app.get('/limits',async (req,res)=>{
+  res.json({cpu: config.Pterodactyl.specifications.cpu,ram: config.Pterodactyl.specifications.memory,storage: config.Pterodactyl.specifications.storage})
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
