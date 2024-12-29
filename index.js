@@ -99,6 +99,15 @@ app.get('/dash',async (req,res)=>{
     res.redirect("/login");
   }
 })
+
+app.get('/account', async(req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'accounts.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
 app.get('/login', async (req, res) => {
   const session = await checkSession(req.cookies.session_id);
   if(session){
@@ -148,7 +157,15 @@ try{
 app.get('/limits',async (req,res)=>{
   res.json({cpu: config.Pterodactyl.specifications.cpu,ram: config.Pterodactyl.specifications.memory,storage: config.Pterodactyl.specifications.storage})
 })
-
+app.get('/getuser',async (req,res)=>{
+  const user = await getUserBySession(req.cookies.session_id)
+  res.send(user)
+})
+app.get('/changepass',async (req,res)=>{
+  const user = await getUserBySession(req.cookies.session_id)
+  const newpass = await pteroauth.changePassword(user[0].email)
+  res.send(newpass)
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
