@@ -157,4 +157,31 @@ const changePassword = async (email) => {
   return {newpass: newpass};
 }
 
-module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword}
+async function deleteServer(id) {
+  const serverId = id; // Replace with the actual server ID
+  const apiKey = config.Pterodactyl.api_key; // Replace with your actual API key
+
+  const url = config.Pterodactyl.panel_url+`/api/application/servers/${serverId}`;
+
+  try {
+      const response = await fetch(url, {
+          method: 'DELETE',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`
+          }
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to delete the server');
+      }
+
+      const result = await response;
+      return result;
+  } catch (error) {
+      console.error('Error deleting server:', error);
+  }
+}
+
+module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword,deleteServer}
