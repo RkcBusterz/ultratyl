@@ -28,7 +28,7 @@ database.exec(`
 `);
 database.exec(`
 CREATE TABLE IF NOT EXISTS servers (
-    userid INT UNIQUE,
+    userid INT,
     serverid INT UNIQUE,
     expiry TEXT
     );
@@ -84,6 +84,14 @@ catch(err){
 }
 }
 
+const deleteServer = async (serverId)=>{
+  try{
+    const remove = database.prepare(
+      'DELETE FROM servers WHERE serverid = ?');
+      remove.run(serverId)
+  }catch(err){}
+}
+
 const addOrRemoveCoin = async (userid,coins)=>{
   try{
   const user = await new Promise((resolve, reject) => {
@@ -113,11 +121,15 @@ try{
       resolve(rows);
     });
   });
+  if(user[0].coins >= config.coins.renew){
 addOrRemoveCoin(server[0].userid,(config.coins.renew)* -1)
+pteroauth.unsuspendServer(serverid)
+}else{
+  pteroauth.suspendServer(serverid)
+}
   
 }catch(err){}
 }
-renewServer(54)
 
 const AddOrGetUser = async (code) => {
 
@@ -228,7 +240,10 @@ app.get('/create',async (req,res)=>{
   const servercount = servers.length
   if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0){
   if(servercount == 0){
-  pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>res.send(response));
+  pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>{
+    res.send(response)
+    addServer(response.attributes.id,userid)
+  });
   }else{res.send("You already own 1 server")}}
   else {res.send("Invalid values, please check did you forgot name or any other input")}
   }catch(err){
@@ -290,6 +305,7 @@ app.get('/delete', async (req, res) => {
 
     const serverId = servers[serverIndex].attributes.id;
     await pteroauth.deleteServer(serverId);
+    deleteServer(serverId)
     res.send("Server deleted successfully.");
   } catch (err) {
     console.error("Error deleting server:", err);
@@ -297,7 +313,10 @@ app.get('/delete', async (req, res) => {
   }
 });
 
-
+app.get('/coins', async (req,res)=>{
+  const user = await getUserBySession(req.cookies.session_id)
+  res.send(user[0].coins)
+})
 
 
 app.listen(port, () => {
