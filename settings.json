@@ -1,0 +1,28 @@
+{
+    "Discord" : {
+    "CLIENT_SECRET": "",
+    "CLIENT_ID": ""
+
+},
+"Pterodactyl" :{
+"panel_url": "",
+"api_key": "",
+"specifications":{
+    "memory": 3072,
+    "cpu": 100,
+    "storage": 5172
+}
+
+},
+
+"coins":{
+    "reward": 20,
+    "renew": 100,
+    "time": 24
+},
+
+"dash":{
+    "url" : "http://localhost:3000",
+    "adscript": "alert('hi')"
+}
+}
