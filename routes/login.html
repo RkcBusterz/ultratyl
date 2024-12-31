@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="output.css">
 </head>
-<body class="bg-black bg-[url('wallpaper.webp')] h-screen w-screen flex justify-center align-middle items-center bg-cover bg-fixed bg-center">
-    <div class="bg-blue-400 shadow-2xl shadow-blue-400 w-52 h-20 text-xl text-center justify-center items-center align-middle flex rounded-3xl hover:bg-white hover:shadow-white hover:text-blue-400 text-white" onclick="discord()"><p class="pointer-events-none">Login with Discord</p></div>
+
+<body class="bg-black bg-[url('wallpaper.webp')] bg-cover bg-fixed bg-center h-screen flex justify-center items-center">
+    <main class="flex flex-col items-center justify-center space-y-8 p-4 bg-black bg-opacity-60 rounded-3xl shadow-lg w-full max-w-md">
+        <h1 class="text-3xl font-semibold text-white">Welcome Back!</h1>
+        <p class="text-xl text-gray-300">Please log in to continue</p>
+
+        <div class="bg-blue-500 shadow-xl w-full py-3 text-xl text-center font-medium text-white rounded-xl cursor-pointer hover:bg-blue-400 transition duration-300 transform hover:scale-105"
+            onclick="discord()">
+            Login with Discord
+        </div>
+
+        <p class="text-white text-sm">By logging in, you agree to our <a href="#" class="underline text-blue-300">Terms of Service</a> and <a href="#" class="underline text-blue-300">Privacy Policy</a>.</p>
+    </main>
+
+    <script>
+        function discord() {
+            window.open("https://discord.com/oauth2/authorize?client_id=1321783630690779159&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+email", "_parent");
+        }
+    </script>
 </body>
-<script>
-    function discord(){
-window.open("https://discord.com/oauth2/authorize?client_id=1321783630690779159&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+email","_parent")}
-</script>
+
 </html>

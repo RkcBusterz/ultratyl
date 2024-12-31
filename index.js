@@ -1,3 +1,4 @@
+
 const express = require('express');
 const path = require('path');
 const crypto = require("crypto");
@@ -19,7 +20,8 @@ database.exec(`
     pteroid INT UNIQUE,
     email TEXT UNIQUE,
     user TEXT UNIQUE,
-    session_id TEXT UNIQUE
+    session_id TEXT UNIQUE,
+    coins INT
   )
 `);
 
@@ -99,7 +101,14 @@ app.get('/dash',async (req,res)=>{
     res.redirect("/login");
   }
 })
-
+app.get('/earn',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'earn.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
 app.get('/account', async(req,res)=>{
   const session = await checkSession(req.cookies.session_id);
   if(session){
@@ -138,9 +147,11 @@ app.get('/create',async (req,res)=>{
   const userid = user[0].pteroid
   const servers = await pteroauth.getServers({id:userid})
   const servercount = servers.length
+  if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0){
   if(servercount == 0){
   pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>res.send(response));
-  }else{res.send("You already own 1 server")}
+  }else{res.send("You already own 1 server")}}
+  else {res.send("Invalid values, please check did you forgot name or any other input")}
   }catch(err){
     console.error(err)
   }
@@ -166,6 +177,47 @@ app.get('/changepass',async (req,res)=>{
   const newpass = await pteroauth.changePassword(user[0].email)
   res.send(newpass)
 })
+app.get('/createserver', async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'create.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/servers',async(req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'servers.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+
+app.get('/delete', async (req, res) => {
+  try {
+    if (!req.query.num) {
+      return res.status(400).send("Missing server index (num).");
+    }
+
+    const user = await getUserBySession(req.cookies.session_id);
+    const servers = await pteroauth.getServers({ id: user[0].pteroid });
+
+    // Check if the index is valid
+    const serverIndex = parseInt(req.query.num, 10);
+    if (isNaN(serverIndex) || serverIndex < 0 || serverIndex >= servers.length) {
+      return res.status(400).send("Invalid server index.");
+    }
+
+    const serverId = servers[serverIndex].attributes.id;
+    await pteroauth.deleteServer(serverId);
+    res.send("Server deleted successfully.");
+  } catch (err) {
+    console.error("Error deleting server:", err);
+    res.status(500).send("An error occurred while deleting the server.");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

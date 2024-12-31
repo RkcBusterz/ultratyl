@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Server</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden">
+     <!--Navbar start-->
+     <nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <!-- Mobile menu button-->
+              <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="absolute -inset-0.5" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"></span>
+                <span class="sr-only">Open main menu</span>
+
+                <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+
+                <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div class="flex shrink-0 items-center">
+              </div>
+              <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                  <a href="/dash" class="rounded-md  px-3 py-2 text-sm font-medium  text-gray-300" aria-current="page">Dashboard</a>
+                  <a href="/servers" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Servers</a>
+                  <a href="/account" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white">Account</a>
+                  <a href="/createserver" class="rounded-md px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-700 hover:text-white">Create</a>
+                  <a href="/earn" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Earn</a>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <button type="button" class="relative rounded-full bg-black p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View notifications</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                </svg>
+              </button>
+      
+             
+            </div>
+          </div>
+        </div>
+      
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden animate__animated animate__slideInDown hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a href="/dash" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300" aria-current="page">Dashboard</a>
+            <a href="/account" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white ">Account</a>
+            <a href="/createserver" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white bg-gray-900">Create</a>
+            <a href="/servers" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Servers</a>
+            <a href="/earn" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Earn</a>
+          </div>
+        </div>
+      </nav>
+      <!--Navbar End-->
+    <!--Create Server Form start-->
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 class="text-2xl font-bold text-center mb-6 text-white">Create Server</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="server-name" class="block text-sm font-medium text-gray-200">Server Name</label>
+                    <input type="text" id="server-name" name="server-name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white" placeholder="Enter server name">
+                </div>
+                <div class="mb-4">
+                    <label for="server-type" class="block text-sm font-medium text-gray-200">Server Type</label>
+                    <select id="server-type" name="server-type" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white bg-black">
+                        <option value="paper">Paper</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="server-plan" class="block text-sm font-medium text-gray-200">Plan</label>
+                    <select id="server-plan" name="server-plan" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white bg-black">
+                        <option value="basic">Basic</option>
+                    </select>
+                </div>
+                <div class="mb-4 text-center">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none">
+                        Create Server
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--Create Server Form end-->
+</body>
+</html>
+
+this is create.html
+
+const express = require('express');
+const path = require('path');
+const crypto = require("crypto");
+const sqlite3 = require("sqlite3");
+const discordauth = require("./discordauth");
+const pteroauth = require("./pteroauth");
+const cookieParser = require("cookie-parser");
+const config = require("./settings.json")
+
+const app = express();
+app.use(cookieParser())
+const port = 3000;
+const database = new sqlite3.Database("logins.db");
+
+app.use(express.static('routes'));
+
+database.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    pteroid INT UNIQUE,
+    email TEXT UNIQUE,
+    user TEXT UNIQUE,
+    session_id TEXT UNIQUE,
+    coins INT
+  )
+`);
+
+const getUser = (email) => {
+  return new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+};
+
+const getUserBySession = (session) => {
+  return new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE session_id = ?",[session], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+};
+const checkSession = async (session) =>{
+  const user = await getUserBySession(session);
+  if(user.length == 0){
+    return false;
+  }else{
+    return true;
+  }
+}
+
+const AddOrGetUser = async (code) => {
+
+try{
+  const userinfo = await discordauth.fetchUser(code);
+  const user = await getUser(userinfo.email)
+  if(user.length == 0){
+
+    const insert = database.prepare(
+      'INSERT INTO users (pteroid, email, user, session_id) VALUES (?, ?, ?, ?)'
+    );
+    const session_id = crypto.randomBytes(25).toString('hex');
+  
+  const pteroinfo = await pteroauth.addUser({
+    email: userinfo.email,
+    username: userinfo.username,
+    global_name: userinfo.global_name,
+  });
+  insert.run(
+    pteroinfo.attributes.id,
+    userinfo.email,
+    userinfo.username,
+    session_id
+  );
+  return session_id;
+}else {
+  return user[0].session_id;
+}
+  
+}catch{
+  console.error("Invalid code");
+}
+
+  
+};
+app.get('/',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.redirect('/dash')
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/dash',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'dashboard.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/earn',async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'earn.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/account', async(req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'accounts.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/login', async (req, res) => {
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.redirect("/dashboard");
+
+  }else{
+    res.sendFile(path.join(__dirname, 'routes', 'login.html'));
+  }
+});
+
+app.get('/callback', async (req, res) => {
+
+try{
+const session = await AddOrGetUser(req.query.code);
+res.cookie("session_id",session);
+res.redirect("/");
+}catch{
+console.error("Cant get session id");
+}
+});
+app.get('/create',async (req,res)=>{
+  try{
+  const memory = req.query.memory;
+  const cpu = req.query.cpu;
+  const storage = req.query.storage
+  const name = req.query.name;
+  const user = await getUserBySession(req.cookies.session_id);
+  const userid = user[0].pteroid
+  const servers = await pteroauth.getServers({id:userid})
+  const servercount = servers.length
+  if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0){
+  if(servercount == 0){
+  pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>res.send(response));
+  }else{res.send("You already own 1 server")}}
+  else {res.send("Invalid values, please check did you forgot name or any other input")}
+  }catch(err){
+    console.error(err)
+  }
+})
+app.get('/getservers',async (req,res) =>{
+try{
+  const user = await getUserBySession(req.cookies.session_id);
+  const servers = await pteroauth.getServers({id:user[0].pteroid})
+  res.json(servers)
+}catch(err){
+  console.error(err)
+}
+})
+app.get('/limits',async (req,res)=>{
+  res.json({cpu: config.Pterodactyl.specifications.cpu,ram: config.Pterodactyl.specifications.memory,storage: config.Pterodactyl.specifications.storage})
+})
+app.get('/getuser',async (req,res)=>{
+  const user = await getUserBySession(req.cookies.session_id)
+  res.send(user)
+})
+app.get('/changepass',async (req,res)=>{
+  const user = await getUserBySession(req.cookies.session_id)
+  const newpass = await pteroauth.changePassword(user[0].email)
+  res.send(newpass)
+})
+app.get('/createserver', async (req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'create.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+app.get('/servers',async(req,res)=>{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'servers.html'));
+  }else{
+    res.redirect("/login");
+  }
+})
+
+app.get('/delete', async (req, res) => {
+  try {
+    if (!req.query.num) {
+      return res.status(400).send("Missing server index (num).");
+    }
+
+    const user = await getUserBySession(req.cookies.session_id);
+    const servers = await pteroauth.getServers({ id: user[0].pteroid });
+
+    // Check if the index is valid
+    const serverIndex = parseInt(req.query.num, 10);
+    if (isNaN(serverIndex) || serverIndex < 0 || serverIndex >= servers.length) {
+      return res.status(400).send("Invalid server index.");
+    }
+
+    const serverId = servers[serverIndex].attributes.id;
+    await pteroauth.deleteServer(serverId);
+    res.send("Server deleted successfully.");
+  } catch (err) {
+    console.error("Error deleting server:", err);
+    res.status(500).send("An error occurred while deleting the server.");
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+this is index.js
+
+now make it such that on basic plan it will make a request to the code to make a 3072mb ram, 100% cpu and 5172 mb server also
+
+make a getcoin route which will add coins to specific user with session_id, also make the create.html server be stored on a db file which will have a expiry time and also use config.coins.reward to know how much coins to give the user and use config.coins.renew to get renewal cost and config.coins.time to get how much hours to be added also use pteroauth.suspend or ptero.unsuspend to suspend and unsuspend the servers, if servers arent renewed from 3 days then delete it
+

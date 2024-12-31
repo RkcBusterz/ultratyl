@@ -183,5 +183,48 @@ async function deleteServer(id) {
       console.error('Error deleting server:', error);
   }
 }
+function suspendServer(serverId) {
+  const apiKey = config.Pterodactyl.api_key;
+  fetch(config.Pterodactyl.panel_url+`/api/application/servers/${serverId}/suspend`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({}) // Empty body if not required by API
+  })
+  .then(response => response)
+  .then(data => {
+      if (data && data.success) {
+          console.log('Server successfully suspended');
+      } else {
+          console.error('Error suspending server:', data.message || 'Unknown error');
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
 
-module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword,deleteServer}
+function unsuspendServer(serverId) {
+  const apiKey = config.Pterodactyl.api_key;
+  fetch(config.Pterodactyl.panel_url+`/api/application/servers/${serverId}/unsuspend`, {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({}) // Empty body if not required by API
+  })
+  .then(response => response)
+  .then(data => {
+      if (data && data.success) {
+          console.log('Server successfully unsuspended');
+      } else {
+          console.error('Error unsuspending server:', data.message || 'Unknown error');
+      }
+  })
+  .catch(error => console.error('Error:', error));
+}
+unsuspendServer(59)
+module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword,deleteServer,suspendServer,unsuspendServer}

@@ -25,9 +25,9 @@ const htmls = async () =>{
             cpuUsed = cpuUsed + ser[i].attributes.limits.cpu;
             storageUsed = storageUsed + ser[i].attributes.limits.disk;}
         console.log(ramUsed,cpuUsed,storageUsed)
-        document.getElementById("cpu").innerHTML = `${lim.cpu-cpuUsed}%/${lim.cpu}%`;
-        document.getElementById("ram").innerHTML = `${lim.ram-ramUsed}MB/${lim.ram}MB`;
-        document.getElementById("storage").innerHTML = `${lim.storage-storageUsed}MB/${lim.storage}MB`
+        document.getElementById("cpu").innerHTML = `${cpuUsed}%/${lim.cpu}%`;
+        document.getElementById("ram").innerHTML = `${ramUsed}MB/${lim.ram}MB`;
+        document.getElementById("storage").innerHTML = `${storageUsed}MB/${lim.storage}MB`
         console.log(`${lim.storage-storageUsed}, ${lim.ram-ramUsed}, ${lim.cpu-cpuUsed}`)
     }
 }

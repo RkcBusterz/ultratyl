@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Servers</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden">
+      <!--Navbar start-->
+      <nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <!-- Mobile menu button-->
+              <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="absolute -inset-0.5" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"></span>
+                <span class="sr-only">Open main menu</span>
+  
+                <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+  
+                <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div class="flex shrink-0 items-center">
+              </div>
+              <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                  <a href="/dash" class="rounded-md  px-3 py-2 text-sm font-medium  text-gray-300" aria-current="page">Dashboard</a>
+                  <a href="/servers" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 bg-gray-900 hover:text-white">Servers</a>
+                  <a href="/account" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700  hover:text-white">Account</a>
+                  <a href="/createserver" class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white">Create</a>
+                  <a href="/earn" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Earn</a>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <button type="button" class="relative rounded-full bg-black p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">View notifications</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                </svg>
+              </button>
+      
+             
+            </div>
+          </div>
+        </div>
+      
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="sm:hidden animate__animated animate__slideInDown hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a href="/dash" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300" aria-current="page">Dashboard</a>
+            <a href="/account" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white ">Account</a>
+            <a href="/createserver" class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white ">Create</a>
+            <a href="/servers" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 bg-gray-900 hover:text-white">Servers</a>
+            <a href="/earn" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Earn</a>
+          </div>
+        </div>
+      </nav>
+      <!--Navbar End-->
+
+    <!--Servers List start-->
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-black bg-opacity-50 p-6 rounded-lg shadow-lg w-full max-w-4xl">
+            <h2 class="text-2xl font-bold text-center mb-6 text-white ">Your Servers</h2>
+            <div id="server-list" class="space-y-4">
+                <!-- Server details will be loaded here -->
+            </div>
+        </div>
+    </div>
+    <!--Servers List end-->
+
+    <script>
+        async function getServers() {
+            try {
+                const response = await fetch('/getservers');
+                const servers = await response.json();
+
+                const serverList = document.getElementById('server-list');
+                serverList.innerHTML = ''; // Clear any existing content
+
+                servers.forEach((server, index) => {
+                    const { name, limits } = server.attributes;
+                    const memory = limits.memory;
+                    const disk = limits.disk;
+                    const cpu = limits.cpu;
+
+                    const serverElement = document.createElement('div');
+                    serverElement.classList.add('bg-gray-800', 'p-4', 'rounded-lg', 'shadow-md');
+
+                    serverElement.innerHTML = `
+                        <h3 class="text-xl text-white">${name}</h3>
+                        <p class="text-gray-300">Memory: ${memory} MB</p>
+                        <p class="text-gray-300">Disk: ${disk} GB</p>
+                        <p class="text-gray-300">CPU: ${cpu} %</p>
+                        <button onclick="deleteServer(${index})" class="mt-4 w-full px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all duration-300">
+    Delete Server
+</button>
+
+                    `;
+
+                    serverList.appendChild(serverElement);
+                });
+            } catch (error) {
+                console.error('Error fetching servers:', error);
+            }
+        }
+
+        async function deleteServer(index) {
+    try {
+        const response = await fetch(`/delete?num=${index}`);
+
+        if (response.ok) {
+            alert('Server deleted successfully');
+            getServers(); // Refresh the server list
+        } else {
+            alert('Failed to delete server');
+        }
+    } catch (error) {
+        console.error('Error deleting server:', error);
+    }
+}
+
+        // Call the function to load servers when the page loads
+        window.onload = getServers;
+    </script>
+</body>
+</html>
