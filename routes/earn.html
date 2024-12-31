@@ -98,7 +98,7 @@
         let countdown = 60;
         const countdownElement = document.getElementById('countdown');
         const getCoinButton = document.getElementById('get-coin');
-        const coinCountElement = document.getElementById('coin-count');  // Element to show coins
+        const coinCountElement = document.getElementById('coin-count');
 
         // Function to fetch coins and update the display
         function fetchCoins() {
@@ -106,7 +106,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.coins !== undefined) {
-                        coinCountElement.innerText = data.coins;  // Update the coin count on the page
+                        coinCountElement.innerText = data.coins; 
                     } else {
                         console.error('Invalid response:', data);
                     }
@@ -131,8 +131,8 @@
 
         // Change button position every 60 seconds
         function changeButtonPosition() {
-            const randomX = Math.floor(Math.random() * 80) + 10; // Random X position between 10% and 90%
-            const randomY = Math.floor(Math.random() * 80) + 10; // Random Y position between 10% and 90%
+            const randomX = Math.floor(Math.random() * 80) + 10; 
+            const randomY = Math.floor(Math.random() * 80) + 10;
             getCoinButton.style.position = 'absolute';
             getCoinButton.style.left = `${randomX}%`;
             getCoinButton.style.top = `${randomY}%`;
@@ -144,7 +144,7 @@
                 .then(data => {
                     if (data.success) {
                         alert('Coins successfully added!');
-                        fetchCoins();  // Refresh the coin count after requesting coins
+                        fetchCoins(); 
                     } else {
                    fetchCoins()
                     }

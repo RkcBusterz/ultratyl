@@ -237,7 +237,6 @@ app.get('/login', async (req, res) => {
 });
 
 app.get('/callback', async (req, res) => {
-
 try{
 const session = await AddOrGetUser(req.query.code);
 res.cookie("session_id",session);
@@ -281,29 +280,43 @@ app.get('/limits',async (req,res)=>{
   res.json({cpu: config.Pterodactyl.specifications.cpu,ram: config.Pterodactyl.specifications.memory,storage: config.Pterodactyl.specifications.storage})
 })
 app.get('/getuser',async (req,res)=>{
+  try{
   const user = await getUserBySession(req.cookies.session_id)
   res.send(user)
+  }catch(err){}
 })
+
+
 app.get('/changepass',async (req,res)=>{
+  try{
   const user = await getUserBySession(req.cookies.session_id)
   const newpass = await pteroauth.changePassword(user[0].email)
   res.send(newpass)
+  }catch(err){}
 })
+
+
 app.get('/createserver', async (req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.sendFile(path.join(__dirname, 'routes', 'create.html'));
   }else{
     res.redirect("/login");
   }
+  }catch(err){}
 })
+
+
 app.get('/servers',async(req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.sendFile(path.join(__dirname, 'routes', 'servers.html'));
   }else{
     res.redirect("/login");
   }
+}catch(err){}
 })
 
 app.get('/delete', async (req, res) => {
@@ -338,6 +351,10 @@ app.get('/coins', async (req,res)=>{
     res.send({coins:coins})
 }catch(err){}
 })
+
+app.get('/logininfo',async(req,res)=>{
+  res.send({url: config.dash.url,clientid:config.Discord.CLIENT_ID})
+})
 app.get('/getcoins',async(req,res)=>{
   try{
     const user = await getUserBySession(req.cookies.session_id)
@@ -345,7 +362,13 @@ app.get('/getcoins',async(req,res)=>{
     res.send({response: "Added coins"})
   }catch(err){}
 })
-
+app.get('/ads',async(req,res)=>{
+  try{
+  res.send({script: config.dash.adscript})
+  }catch(err){
+    
+  }
+})
 setInterval(()=>{renewAll()},1000*60*60)
 
 

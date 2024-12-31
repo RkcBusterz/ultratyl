@@ -13,8 +13,7 @@
         <h1 class="text-3xl font-semibold text-white">Welcome Back!</h1>
         <p class="text-xl text-gray-300">Please log in to continue</p>
 
-        <div class="bg-blue-500 shadow-xl w-full py-3 text-xl text-center font-medium text-white rounded-xl cursor-pointer hover:bg-blue-400 transition duration-300 transform hover:scale-105"
-            onclick="discord()">
+        <div class="bg-blue-500 shadow-xl w-full py-3 text-xl text-center font-medium text-white rounded-xl cursor-pointer hover:bg-blue-400 transition duration-300 transform hover:scale-105" id="discord-login">
             Login with Discord
         </div>
 
@@ -22,10 +21,24 @@
     </main>
 
     <script>
-        function discord() {
-            window.open("https://discord.com/oauth2/authorize?client_id=1321783630690779159&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&scope=identify+email", "_parent");
-        }
+        fetch('/logininfo')
+            .then(response => response.json())
+            .then(data => {
+                const { url, clientid } = data;
+                
+                function discord() {
+                    const redirectUri = encodeURIComponent(`${url}/callback`);
+                    const discordUrl = `https://discord.com/oauth2/authorize?client_id=${clientid}&response_type=code&redirect_uri=${redirectUri}&scope=identify+email`;
+                    
+                    window.open(discordUrl, "_parent");
+                }
+                document.getElementById('discord-login').addEventListener('click', discord);
+            })
+            .catch(error => {
+                console.error('Error fetching login info:', error);
+            });
     </script>
+    
 </body>
 
 </html>
