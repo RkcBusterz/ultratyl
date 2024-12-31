@@ -85,6 +85,7 @@
             <div class="mb-4">
                 <p class="text-white text-center text-xl mb-4">Earn coins by staying active!</p>
                 <p class="text-gray-200 text-center text-lg">Next coin request in: <span id="countdown" class="font-bold">60</span> seconds</p>
+                <p class="text-gray-200 text-center text-lg">Your coins: <span id="coin-count" class="font-bold">0</span></p> <!-- Added coins display -->
             </div>
             <div class="text-center">
                 <button id="get-coin" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none hidden">Request Coins</button>
@@ -94,10 +95,26 @@
     <!-- Earning Page End -->
 
     <script>
-        // Function to handle AFK system and button position change
         let countdown = 60;
         const countdownElement = document.getElementById('countdown');
         const getCoinButton = document.getElementById('get-coin');
+        const coinCountElement = document.getElementById('coin-count');  // Element to show coins
+
+        // Function to fetch coins and update the display
+        function fetchCoins() {
+            fetch('/coins')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.coins !== undefined) {
+                        coinCountElement.innerText = data.coins;  // Update the coin count on the page
+                    } else {
+                        console.error('Invalid response:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching coins:', error);
+                });
+        }
 
         function startAFKSystem() {
             setInterval(function () {
@@ -105,7 +122,6 @@
                     countdown--;
                     countdownElement.innerText = countdown;
                 } else {
-                    // Show button and reset countdown
                     getCoinButton.classList.remove('hidden');
                     countdown = 60;
                     countdownElement.innerText = countdown;
@@ -123,20 +139,27 @@
         }
 
         function requestCoin() {
-            fetch('/getcoin')
+            fetch('/getcoins')
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         alert('Coins successfully added!');
+                        fetchCoins();  // Refresh the coin count after requesting coins
                     } else {
-                        alert('Error: ' + data.message);
+                   fetchCoins()
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('An error occurred while requesting coins.');
                 });
-        }setInterval(changeButtonPosition, 60000);startAFKSystem();
+        }
+
+        // Initialize page by fetching coins
+        fetchCoins();
+
+        setInterval(changeButtonPosition, 60000);
+        startAFKSystem();
 
         getCoinButton.addEventListener('click', function () {
             getCoinButton.classList.add('hidden');

@@ -314,8 +314,18 @@ app.get('/delete', async (req, res) => {
 });
 
 app.get('/coins', async (req,res)=>{
+  try{
   const user = await getUserBySession(req.cookies.session_id)
-  res.send(user[0].coins)
+  const coins = await user[0].coins
+    res.send({coins:coins})
+}catch(err){}
+})
+app.get('/getcoins',async(req,res)=>{
+  try{
+    const user = await getUserBySession(req.cookies.session_id)
+    addOrRemoveCoin(user[0].pteroid,config.coins.reward)
+    res.send({response: "Added coins"})
+  }catch(err){}
 })
 
 
