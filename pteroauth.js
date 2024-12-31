@@ -226,5 +226,4 @@ function unsuspendServer(serverId) {
   })
   .catch(error => console.error('Error:', error));
 }
-unsuspendServer(59)
 module.exports = {addUser,config,getUser,crypto,getServers,createServer,changePassword,deleteServer,suspendServer,unsuspendServer}

@@ -11,7 +11,7 @@ const config = require("./settings.json")
 const app = express();
 app.use(cookieParser())
 const port = 3000;
-const database = new sqlite3.Database("logins.db");
+const database = new sqlite3.Database("data.db");
 
 app.use(express.static('routes'));
 
@@ -22,9 +22,17 @@ database.exec(`
     user TEXT UNIQUE,
     session_id TEXT UNIQUE,
     coins INT
-  )
-`);
+  );
 
+  
+`);
+database.exec(`
+CREATE TABLE IF NOT EXISTS servers (
+    userid INT UNIQUE,
+    serverid INT UNIQUE,
+    expiry TEXT
+    );
+  `)
 const getUser = (email) => {
   return new Promise((resolve, reject) => {
     database.all("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
@@ -50,7 +58,34 @@ const checkSession = async (session) =>{
     return true;
   }
 }
+const addServer = async (id,userid) =>{
+  try{
+  let currentTime = new Date();
+  let expiry = currentTime.setHours(currentTime.getHours() + 24)
+  const insert = database.prepare(
+    'INSERT INTO servers (userid, serverid, expiry) VALUES (?, ?, ?)');
+  insert.run(
+    userid,
+    id,
+    expiry
+  );
+}
+catch(err){
+  console.error(err)
+}
+}
+const renewServer = async (serverid) =>{
 
+  const xd = await new Promise((resolve, reject) => {
+    database.all("SELECT * FROM servers WHERE serverid = ?",[serverid], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+
+  console.log(xd)
+}
+renewServer(20)
 const AddOrGetUser = async (code) => {
 
 try{
@@ -217,6 +252,9 @@ app.get('/delete', async (req, res) => {
     res.status(500).send("An error occurred while deleting the server.");
   }
 });
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
