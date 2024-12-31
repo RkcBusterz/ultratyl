@@ -366,12 +366,12 @@ app.get('/ads',async(req,res)=>{
   try{
   res.send({script: config.dash.adscript})
   }catch(err){
-    
+
   }
 })
 setInterval(()=>{renewAll()},1000*60*60)
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Ultratyl listening on port ${port}`);
 });
