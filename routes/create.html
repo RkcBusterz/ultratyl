@@ -47,7 +47,7 @@
             <form id="create-server-form">
                 <div class="mb-4">
                     <label for="server-name" class="block text-sm font-medium text-gray-200">Server Name</label>
-                    <input type="text" id="server-name" name="server-name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white" placeholder="Enter server name">
+                    <input type="text" id="server-name" name="server-name" class="mt-1 p-2 w-full border text-black border-gray-300 rounded-lg" placeholder="Enter server name">
                 </div>
                 <div class="mb-4">
                     <label for="server-type" class="block text-sm font-medium text-gray-200">Server Type</label>
@@ -89,7 +89,7 @@
             }
 
             // Call backend to create the server
-            const createResponse = await fetch(`/create?name=${serverName}&memory=${memory}&cpu=${cpu}&storage=${storage}`);
+            const createResponse = await fetch(`/create?name=${encodeURIComponent(serverName)}&memory=${memory}&cpu=${cpu}&storage=${storage}`);
 
             const result = await createResponse.text();
             alert(result); // Show result to the user
