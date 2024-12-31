@@ -164,7 +164,25 @@ try{
 }
 
   
+
 };
+
+const renewAll = async () =>{
+  database.all('SELECT * FROM servers', [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+  
+    // Log each row to the console
+    rows.forEach((row) => {
+      renewServer(row.serverid)
+    });
+  });
+}
+
+
+
+
 app.get('/',async (req,res)=>{
   try{
   const session = await checkSession(req.cookies.session_id);
@@ -327,6 +345,8 @@ app.get('/getcoins',async(req,res)=>{
     res.send({response: "Added coins"})
   }catch(err){}
 })
+
+setInterval(()=>{renewAll()},1000*60*60)
 
 
 app.listen(port, () => {
