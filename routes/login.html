@@ -28,7 +28,7 @@
                 
                 function discord() {
                     const redirectUri = encodeURIComponent(`${url}/callback`);
-                    const discordUrl = `https://discord.com/oauth2/authorize?client_id=${clientid}&response_type=code&redirect_uri=${redirectUri}&scope=identify+email`;
+                    const discordUrl = `https://discord.com/oauth2/authorize?client_id=${clientid}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify+email`;
                     
                     window.open(discordUrl, "_parent");
                 }
