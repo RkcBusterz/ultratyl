@@ -14,14 +14,14 @@ const port = 3000;
 const database = new sqlite3.Database("data.db");
 
 app.use(express.static('routes'));
-
+try{
 database.exec(`
   CREATE TABLE IF NOT EXISTS users (
     pteroid INT UNIQUE,
     email TEXT UNIQUE,
     user TEXT UNIQUE,
     session_id TEXT UNIQUE,
-    coins INT
+    coins INTEGER DEFAULT 0
   );
 
   
@@ -33,30 +33,39 @@ CREATE TABLE IF NOT EXISTS servers (
     expiry TEXT
     );
   `)
+
+}catch(err){
+
+}
 const getUser = (email) => {
+  try{
   return new Promise((resolve, reject) => {
     database.all("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
   });
+}catch(err){}
 };
 
 const getUserBySession = (session) => {
+  try{
   return new Promise((resolve, reject) => {
     database.all("SELECT * FROM users WHERE session_id = ?",[session], (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
   });
+}catch(err){}
 };
 const checkSession = async (session) =>{
+  try{
   const user = await getUserBySession(session);
   if(user.length == 0){
     return false;
   }else{
     return true;
-  }
+  }}catch(err){}
 }
 const addServer = async (id,userid) =>{
   try{
@@ -74,18 +83,42 @@ catch(err){
   console.error(err)
 }
 }
-const renewServer = async (serverid) =>{
 
-  const xd = await new Promise((resolve, reject) => {
+const addOrRemoveCoin = async (userid,coins)=>{
+  try{
+  const user = await new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE pteroid = ?",[userid], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+var userCoins = user[0].coins
+userCoins = userCoins + coins
+database.run(`UPDATE users SET coins = ? WHERE pteroid = ?`,[userCoins,userid])
+  }catch(err){}
+}
+
+
+const renewServer = async (serverid) =>{
+try{
+  const server = await new Promise((resolve, reject) => {
     database.all("SELECT * FROM servers WHERE serverid = ?",[serverid], (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
   });
-
-  console.log(xd)
+  const user = await new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE pteroid = ?",[server[0].userid], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+addOrRemoveCoin(server[0].userid,(config.coins.renew)* -1)
+  
+}catch(err){}
 }
-renewServer(20)
+renewServer(54)
+
 const AddOrGetUser = async (code) => {
 
 try{
@@ -121,38 +154,48 @@ try{
   
 };
 app.get('/',async (req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.redirect('/dash')
   }else{
     res.redirect("/login");
   }
+}catch(err){}
 })
 app.get('/dash',async (req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.sendFile(path.join(__dirname, 'routes', 'dashboard.html'));
   }else{
     res.redirect("/login");
   }
+}catch(err){}
 })
 app.get('/earn',async (req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.sendFile(path.join(__dirname, 'routes', 'earn.html'));
   }else{
     res.redirect("/login");
   }
+}catch(err){}
 })
 app.get('/account', async(req,res)=>{
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.sendFile(path.join(__dirname, 'routes', 'accounts.html'));
   }else{
     res.redirect("/login");
-  }
+  }}catch(err){}
 })
+
+
 app.get('/login', async (req, res) => {
+  try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
     res.redirect("/dashboard");
@@ -160,6 +203,7 @@ app.get('/login', async (req, res) => {
   }else{
     res.sendFile(path.join(__dirname, 'routes', 'login.html'));
   }
+}catch(err){}
 });
 
 app.get('/callback', async (req, res) => {
