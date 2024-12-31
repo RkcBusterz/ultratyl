@@ -78,7 +78,7 @@
         </div>
     </div>
     <!--Servers List end-->
-
+    <script src="ads.js"></script>
     <script>
         async function getServers() {
             try {
@@ -86,7 +86,7 @@
                 const servers = await response.json();
 
                 const serverList = document.getElementById('server-list');
-                serverList.innerHTML = ''; // Clear any existing content
+                serverList.innerHTML = '';
 
                 servers.forEach((server, index) => {
                     const { name, limits } = server.attributes;
