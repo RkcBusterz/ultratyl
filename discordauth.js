@@ -27,7 +27,7 @@ const fetchUser = async (code) => {
 try{
     const data = await getAccessToken(code)
     try {
-      const response = await fetch(`https://discordapp.com/api/users/@me`, {
+      const response = await fetch(`https://discordapp.com/api/v10/users/@me`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${data}`,
