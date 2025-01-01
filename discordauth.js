@@ -5,7 +5,7 @@ try{
     const data = new URLSearchParams({
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: "http://localhost:3000/callback",
+        redirect_uri: `${config.dash.url}/callback`,
       });
   
       const response = await fetch(`https://discord.com/api/v10/oauth2/token`, {
