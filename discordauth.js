@@ -34,7 +34,7 @@ const fetchUser = async (code) => {
     const token = await getAccessToken(code);
     if (!token) throw new Error("Invalid or missing access token");
 
-    const response = await fetch(`https://discord.com/api/v10/users/@me`, {
+    const response = await fetch(`https://discord.com/api/users/@me`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
