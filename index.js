@@ -38,14 +38,11 @@ CREATE TABLE IF NOT EXISTS servers (
 
 }
 const getUser = (email) => {
-  try{
   return new Promise((resolve, reject) => {
-    database.all("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
-      if (err) return reject(err);
-      resolve(rows);
+    database.all("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+      resolve(rows)
     });
   });
-}catch(err){}
 };
 
 const getUserBySession = (session) => {
@@ -135,7 +132,9 @@ const AddOrGetUser = async (code) => {
 
 try{
   const userinfo = await discordauth.fetchUser(code);
+  console.log(`User info is ${JSON.stringify(userinfo)}`);
   const user = await getUser(userinfo.email)
+  console.log(`Users in db are ${user.length}`)
   if(user.length == 0){
 
     const insert = database.prepare(
@@ -148,6 +147,7 @@ try{
     username: userinfo.username,
     global_name: userinfo.global_name,
   });
+  console.log(pteroinfo);
   insert.run(
     pteroinfo.attributes.id,
     userinfo.email,
@@ -245,6 +245,7 @@ res.redirect("/");
 console.error("Cant get session id");
 }
 });
+
 app.get('/create',async (req,res)=>{
   try{
   const memory = req.query.memory;
