@@ -18,9 +18,8 @@ try{
   catch{return undefined}
 };
 
-const Userdata = await getUser(data.email);
 const addUser = async (data) =>{
-if(Userdata == undefined){
+if(await getUser(data.email) == undefined){
 
 }else{
     const response = await fetch(config.Pterodactyl.panel_url+"/api/application/users",{
