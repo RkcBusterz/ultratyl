@@ -19,13 +19,7 @@ try{
 };
 
 const addUser = async (data) =>{
-<<<<<<< HEAD
 try{
-=======
-if(await getUser(data.email) == undefined){
-
-}else{
->>>>>>> 17ad92cf4d8218f415758c4555e85dd1bafcbe79
     const response = await fetch(config.Pterodactyl.panel_url+"/api/application/users",{
         method: "POST",
         headers: {

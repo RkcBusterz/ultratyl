@@ -26,9 +26,10 @@
             .then(response => response.json())
             .then(data => {
                 const { url, clientid } = data;
-                
+
                 function discord() {
-                    const redirectUri = encodeURIComponent(`${url}/callback`);
+                    // Single-encoded redirect URI
+                    const redirectUri = `${url}/callback`;
                     const discordUrl = `https://discord.com/oauth2/authorize?client_id=${clientid}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify+email`;
                     
                     window.open(discordUrl, "_parent");

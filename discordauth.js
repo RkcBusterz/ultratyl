@@ -20,18 +20,12 @@ const getAccessToken = async (code) => {
     const resjson = await response.json();
     if (!response.ok) {
       throw new Error(`Error getting access token: ${resjson.error || response.statusText}`);
-<<<<<<< HEAD
       
     }else{
       return resjson.access_token;
     }
 
     
-=======
-    }
-
-    return resjson.access_token;
->>>>>>> 17ad92cf4d8218f415758c4555e85dd1bafcbe79
   } catch (error) {
     console.error("Error in getAccessToken:", error.message);
     return null;
@@ -40,13 +34,9 @@ const getAccessToken = async (code) => {
 
 const fetchUser = async (code) => {
   try {
-<<<<<<< HEAD
   
     const token = await getAccessToken(code);
     console.log(token)
-=======
-    const token = await getAccessToken(code);
->>>>>>> 17ad92cf4d8218f415758c4555e85dd1bafcbe79
     if (!token) throw new Error("Invalid or missing access token");
 
     const response = await fetch(`https://discord.com/api/users/@me`, {
