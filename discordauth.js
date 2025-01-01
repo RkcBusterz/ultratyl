@@ -17,15 +17,18 @@ try{
         body: data,
       });
       var resjson = await response.json()
-      return resjson.access_token
+    console.log(resjson.access_token);
+      return resjson.access_token;
     }catch{
       console.error("Invalid code")
     }
 }
 
 const fetchUser = async (code) => {
+    
 try{
     const data = await getAccessToken(code)
+    console.log(data);
     try {
       const response = await fetch(`https://discordapp.com/api/v10/users/@me`, {
         method: 'GET',
