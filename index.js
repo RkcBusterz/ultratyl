@@ -38,14 +38,19 @@ CREATE TABLE IF NOT EXISTS servers (
 
 }
 const getUser = (email) => {
-  try{
   return new Promise((resolve, reject) => {
-    database.all("SELECT * FROM users WHERE email = ?",[email], (err, rows) => {
-      if (err) return reject(err);
-      resolve(rows);
+    database.all("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
+      if (err) {
+        console.error("Error querying user:", err);
+        return reject(err);
+      }
+      if (rows.length === 0) {
+        console.warn(`No user found for email: ${email}`);
+        return resolve(null);
+      }
+      resolve(rows[0]);
     });
   });
-}catch(err){}
 };
 
 const getUserBySession = (session) => {
