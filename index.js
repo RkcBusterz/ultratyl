@@ -141,17 +141,17 @@ try{
       'INSERT INTO users (pteroid, email, user, session_id) VALUES (?, ?, ?, ?)'
     );
     const session_id = crypto.randomBytes(25).toString('hex');
-  
+  // remove the underscore from username
   const pteroinfo = await pteroauth.addUser({
     email: userinfo.email,
-    username: userinfo.username,
+    username: userinfo.username.replace(/_/g, ""),
     global_name: userinfo.global_name,
   });
   console.log(pteroinfo);
   insert.run(
     pteroinfo.attributes.id,
     userinfo.email,
-    userinfo.username,
+    userinfo.username.replace(/_/g, ""),
     session_id
   );
   return session_id;
