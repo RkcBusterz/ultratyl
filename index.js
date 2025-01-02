@@ -349,7 +349,7 @@ app.get('/coins', async (req,res)=>{
   try{
   const user = await getUserBySession(req.cookies.session_id)
   const coins = await user[0].coins
-    res.send({coins:coins})
+    res.send({coins:coins,renew: config.coins.renew,time: config.coins.time})
 }catch(err){}
 })
 
@@ -370,7 +370,7 @@ app.get('/ads',async(req,res)=>{
 
   }
 })
-setInterval(()=>{renewAll()},1000*60*60)
+setInterval(()=>{renewAll()},config.coins.time*1000*60*60)
 
 
 app.listen(port, () => {
