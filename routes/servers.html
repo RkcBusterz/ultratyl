@@ -96,6 +96,10 @@
           const coinsResponse = await fetch('/coins');
           const coinsData = await coinsResponse.json();
     
+          const infoResponse = await fetch('/info');
+          const infoData = await infoResponse.json();
+          const panelUrl = infoData.panel || '#';
+    
           const serverList = document.getElementById('server-list');
           serverList.innerHTML = ''; // Clear any existing content
     
@@ -122,9 +126,14 @@
               <p class="text-gray-300">Disk: ${disk} MB</p>
               <p class="text-gray-300">CPU: ${cpu} %</p>
               <p class="text-gray-300">Renewal: ${renewal}</p>
-              <button onclick="deleteServer(${index})" class="mt-4 w-full px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all duration-300">
-                Delete Server
-              </button>
+              <div class="flex space-x-4 mt-4">
+                <button onclick="deleteServer(${index})" class="w-full px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all duration-300">
+                  Delete Server
+                </button>
+                <button onclick="openPanel('${panelUrl}')" class="w-full px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition-all duration-300">
+                  Open Panel
+                </button>
+              </div>
             `;
     
             serverList.appendChild(serverElement);
@@ -150,8 +159,18 @@
           console.error('Error deleting server:', error);
         }
       }
+    
+      function openPanel(panelUrl) {
+        if (panelUrl && panelUrl !== '#') {
+          window.open(panelUrl, '_blank');
+        } else {
+          alert('Panel URL is not available.');
+        }
+      }
+    
       window.onload = getServers;
     </script>
+    
     
     
 </body>

@@ -370,6 +370,14 @@ app.get('/ads',async(req,res)=>{
 
   }
 })
+app.get('/info',async(req,res)=>{
+  try{
+    res.send({panel: config.Pterodactyl.panel_url});
+  }catch(err){
+    
+  }
+})
+
 setInterval(()=>{renewAll()},config.coins.time*1000*60*60)
 
 
