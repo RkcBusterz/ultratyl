@@ -8,7 +8,7 @@
    <link rel="stylesheet" href="output.css">
    <title>Servers</title>
 </head>
-<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden">
+<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden select-none">
   <!--Navbar start-->
   <nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -108,6 +108,13 @@
             const memory = server.attributes?.limits?.memory || 'N/A';
             const disk = server.attributes?.limits?.disk || 'N/A';
             const cpu = server.attributes?.limits?.cpu || 'N/A';
+            const suspended = server.attributes?.suspended;
+            var status;
+            if(suspended) {
+               status = "INACTIVE, please earn coins to active.";
+            }else{
+               status = "ACTIVE";
+            }
             const renewal = coinsData
               ? `${coinsData.renew} Coins / ${coinsData.time} Hrs`
               : 'N/A';
@@ -126,6 +133,7 @@
               <p class="text-gray-300">Disk: ${disk} MB</p>
               <p class="text-gray-300">CPU: ${cpu} %</p>
               <p class="text-gray-300">Renewal: ${renewal}</p>
+              <p class="text-gray-300">Status: ${status}</p>
               <div class="flex space-x-4 mt-4">
                 <button onclick="deleteServer(${index})" class="w-full px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all duration-300">
                   Delete Server
