@@ -228,7 +228,7 @@ app.get('/login', async (req, res) => {
   try{
   const session = await checkSession(req.cookies.session_id);
   if(session){
-    res.redirect("/dashboard");
+    res.redirect("/dash");
 
   }else{
     res.sendFile(path.join(__dirname, 'routes', 'login.html'));
