@@ -20,20 +20,28 @@
 
 **If you dont have node js and npm run this command**
 
-`sudo apt install -y nodejs npm`
+```
+sudo apt install -y nodejs npm
+```
 
 **First go do /var/www/ where basically websites are saved.**
 
-`cd /var/www/`
+```
+cd /var/www/
+```
 
 **Then clone the git repo by the following command**
 
-`git clone https://github.com/RkcBusterz/ultratyl ultratyl`
+```
+git clone https://github.com/RkcBusterz/ultratyl ultratyl
+```
 
 **Use sftp client or nano and edit the settings.json**
 
 #### Use this command if you are want to use nano.
-`sudo nano /var/www/ultratyl/settings.json`
+```
+sudo nano /var/www/ultratyl/settings.json
+```
 
 - Add the pterodactyl API key and discord client secret.
 - Dont add ( / ) at the end urls for example panel.mysite.com **Dont add slash after com**.
@@ -41,14 +49,22 @@
 
 ### Install pm2 to run the app 24*7
 
-`sudo npm install -g pm2`
+```
+sudo npm install -g pm2
+```
 
 **Then run the app**
 
-`cd /var/www/ultratyl`
+```
+cd /var/www/ultratyl
+```
 
-`pm2 start index.js`
+```
+pm2 start index.js
+```
 
 **Check any error message with this command**
 
-`pm2 logs`
+```
+pm2 logs
+```
