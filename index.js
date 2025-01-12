@@ -7,12 +7,10 @@ const discordauth = require("./discordauth");
 const pteroauth = require("./pteroauth");
 const cookieParser = require("cookie-parser");
 const config = require("./settings.json")
-
 const app = express();
 app.use(cookieParser())
 const port = 3000;
 const database = new sqlite3.Database("data.db");
-
 app.use(express.static('routes'));
 try{
 database.exec(`
@@ -21,7 +19,8 @@ database.exec(`
     email TEXT UNIQUE,
     user TEXT UNIQUE,
     session_id TEXT UNIQUE,
-    coins INTEGER DEFAULT 0
+    coins INTEGER DEFAULT 0,
+    specs TEXT
   );
 
   
@@ -37,6 +36,8 @@ CREATE TABLE IF NOT EXISTS servers (
 }catch(err){
 
 }
+
+
 const getUser = (email) => {
   return new Promise((resolve, reject) => {
     database.all("SELECT * FROM users WHERE email = ?", [email], (err, rows) => {
@@ -133,34 +134,39 @@ const AddOrGetUser = async (code) => {
 try{
   const userinfo = await discordauth.fetchUser(code);
   console.log(`User info is ${JSON.stringify(userinfo)}`);
+  
   const user = await getUser(userinfo.email)
   console.log(`Users in db are ${user.length}`)
   if(user.length == 0){
 
     const insert = database.prepare(
-      'INSERT INTO users (pteroid, email, user, session_id) VALUES (?, ?, ?, ?)'
+      `INSERT INTO users (pteroid, email, user, session_id,specs) VALUES (?, ?, ?, ?,json_set('{}', '$.cpu',?,'$.ram',?,'$.storage',?,'$.slot',?))`
     );
     const session_id = crypto.randomBytes(25).toString('hex');
   // remove the underscore from username
   const pteroinfo = await pteroauth.addUser({
-    email: userinfo.email,
-    username: userinfo.username.replace(/_/g, ""),
+    email: `dashuser${userinfo.email}`,
+    username: `dashuser${userinfo.username.replace(/_/g, "")}`,
     global_name: userinfo.global_name,
   });
   console.log(pteroinfo);
   insert.run(
     pteroinfo.attributes.id,
-    userinfo.email,
-    userinfo.username.replace(/_/g, ""),
-    session_id
+    `dashuser${userinfo.email}`,
+    `dashuser${userinfo.username.replace(/_/g, "")}`,
+    session_id,
+    config.Pterodactyl.specifications.cpu,
+    config.Pterodactyl.specifications.memory,
+    config.Pterodactyl.specifications.storage,
+    config.Pterodactyl.specifications.slot,
   );
   return session_id;
 }else {
   return user[0].session_id;
 }
   
-}catch{
-  console.error("Invalid code");
+}catch(err){
+  console.error(err);
 }
 
   
@@ -389,7 +395,7 @@ app.get('/info',async(req,res)=>{
 })
 app.get('/shopinfo',async (req,res)=>{
   try{
-
+    res.json({"cpu":config.dash.shop.cpu,"ram":config.dash.shop.ram,"storage":config.dash.shop.storage,"slot":config.dash.shop.slot})
   }catch(err){
 
   }
