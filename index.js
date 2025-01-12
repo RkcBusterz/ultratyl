@@ -56,6 +56,8 @@ const getUserBySession = (session) => {
   });
 }catch(err){}
 };
+
+
 const checkSession = async (session) =>{
   try{
   const user = await getUserBySession(session);
@@ -145,15 +147,15 @@ try{
     const session_id = crypto.randomBytes(25).toString('hex');
   // remove the underscore from username
   const pteroinfo = await pteroauth.addUser({
-    email: `dashuser${userinfo.email}`,
-    username: `dashuser${userinfo.username.replace(/_/g, "")}`,
+    email: `dash${userinfo.email}`,
+    username: `dash${userinfo.username.replace(/_/g, "")}`,
     global_name: userinfo.global_name,
   });
   console.log(pteroinfo);
   insert.run(
     pteroinfo.attributes.id,
-    `dashuser${userinfo.email}`,
-    `dashuser${userinfo.username.replace(/_/g, "")}`,
+    `dash${userinfo.email}`,
+    `dash${userinfo.username.replace(/_/g, "")}`,
     session_id,
     config.Pterodactyl.specifications.cpu,
     config.Pterodactyl.specifications.memory,
@@ -172,6 +174,67 @@ try{
   
 
 };
+
+const updateUserSpecsAsync = async (sessionId,whichSpec, newSpecs) => {
+  
+  const userinfo = await getUserBySession(sessionId);
+  const coins = userinfo[0].coins;
+  const id = userinfo[0].pteroid;
+  const data = JSON.parse(userinfo[0].specs);
+  return new Promise((resolve, reject) => {
+    if (whichSpec == "cpu"){
+      if(coins >= config.dash.shop.cpu){
+      cpu = data.cpu + newSpecs
+    database.run(`UPDATE users SET specs = json_set(specs,'$.cpu',?) WHERE session_id = ?`, [cpu, sessionId], function(err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(this.changes);
+      }
+    }); 
+    addOrRemoveCoin(id,config.dash.shop.cpu*-1)
+  }}else if (whichSpec == "ram"){
+    if(coins >= config.dash.shop.ram){
+    ram = data.ram + newSpecs
+  database.run(`UPDATE users SET specs = json_set(specs,'$.ram',?) WHERE session_id = ?`, [ram, sessionId], function(err) {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(this.changes);
+    }
+  }); 
+  addOrRemoveCoin(id,config.dash.shop.ram*-1)
+}}else if (whichSpec == "storage"){
+  if(coins >= config.dash.shop.storage){
+  storage = data.storage + newSpecs
+database.run(`UPDATE users SET specs = json_set(specs,'$.storage',?) WHERE session_id = ?`, [storage, sessionId], function(err) {
+  if (err) {
+    reject(err);
+  } else {
+    resolve(this.changes);
+  }
+}); 
+addOrRemoveCoin(id,config.dash.shop.storage*-1)
+}}else if (whichSpec == "slot"){
+  if(coins >= config.dash.shop.slot){
+  slot = data.slot + newSpecs
+database.run(`UPDATE users SET specs = json_set(specs,'$.slot',?) WHERE session_id = ?`, [slot, sessionId], function(err) {
+  if (err) {
+    reject(err);
+  } else {
+    resolve(this.changes);
+  }
+}); 
+addOrRemoveCoin(id,config.dash.shop.slot*-1)
+}}
+ 
+   
+
+
+  });
+};
+updateUserSpecsAsync("53abb2fd7596d41651e4c05a3d9430bd5d216a62c2fdfdfc9a","ram",100)
+
 
 const renewAll = async () =>{
   database.all('SELECT * FROM servers', [], (err, rows) => {
@@ -294,7 +357,9 @@ try{
 }
 })
 app.get('/limits',async (req,res)=>{
-  res.json({cpu: config.Pterodactyl.specifications.cpu,ram: config.Pterodactyl.specifications.memory,storage: config.Pterodactyl.specifications.storage})
+  userinfo = await getUserBySession(req.cookies.session_id);
+  data = JSON.parse(userinfo[0].specs)
+  res.json({cpu: data.cpu,ram: data.ram,storage: data.storage})
 })
 app.get('/getuser',async (req,res)=>{
   try{
@@ -399,6 +464,23 @@ app.get('/shopinfo',async (req,res)=>{
   }catch(err){
 
   }
+})
+
+app.get('/buycpu',async(req,res)=>{
+  sessionId = req.cookies.session_id;
+  updateUserSpecsAsync(sessionId,"cpu",100)
+})
+app.get('/buyram',async(req,res)=>{
+  sessionId = req.cookies.session_id;
+  updateUserSpecsAsync(sessionId,"ram",1024)
+})
+app.get('/buystorage',async(req,res)=>{
+  sessionId = req.cookies.session_id;
+  updateUserSpecsAsync(sessionId,"cpu",1024)
+})
+app.get('/buyslot',async(req,res)=>{
+  sessionId = req.cookies.session_id;
+  updateUserSpecsAsync(sessionId,"slot",1)
 })
 
 setInterval(()=>{renewAll()},config.coins.time*1000*60*60)

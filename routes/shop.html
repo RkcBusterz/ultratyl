@@ -206,9 +206,8 @@
         }
 
         function buy(item) {
-            fetch(`/buy${item}`).then(() => {
-                alert(`Check dashboard for confirming your purchase was done or not, if not then you are out of coins.`);
-            });
+            fetch(`/buy${item}`)
+            location.reload();
         }
 
         fetchShopInfo();
