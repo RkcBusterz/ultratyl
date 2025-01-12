@@ -333,10 +333,11 @@ app.get('/create',async (req,res)=>{
   const name = req.query.name;
   const user = await getUserBySession(req.cookies.session_id);
   const userid = user[0].pteroid
+  const limits = JSON.parse(user[0].specs)
   const servers = await pteroauth.getServers({id:userid})
   const servercount = servers.length
   if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0){
-  if(servercount == 0){
+  if(servercount < limits.slot){
   pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>{
     res.send(response)
     addServer(response.attributes.id,userid)
@@ -476,7 +477,7 @@ app.get('/buyram',async(req,res)=>{
 })
 app.get('/buystorage',async(req,res)=>{
   sessionId = req.cookies.session_id;
-  updateUserSpecsAsync(sessionId,"cpu",1024)
+  updateUserSpecsAsync(sessionId,"storage",1024)
 })
 app.get('/buyslot',async(req,res)=>{
   sessionId = req.cookies.session_id;
