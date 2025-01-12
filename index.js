@@ -38,6 +38,38 @@ CREATE TABLE IF NOT EXISTS servers (
 
 }
 
+// UPDATE THE DATABASE NEW FEATURES ARE HAPPENING ALR ?? BRUH ??
+database.all(`PRAGMA table_info(users);`, (err, rows) => {
+  if (err) {
+    console.error("Error fetching table info:", err.message);
+    return;
+  }
+  if (Array.isArray(rows)) {
+    const columnExists = rows.some(row => row.name === "specs");
+
+    if (!columnExists) {
+      try {
+        database.run(`
+          ALTER TABLE users ADD COLUMN specs TEXT DEFAULT 
+          '{"cpu": ${config.Pterodactyl.specifications.cpu}, 
+            "ram": ${config.Pterodactyl.specifications.memory}, 
+            "storage": ${config.Pterodactyl.specifications.storage}, 
+            "slot": ${config.Pterodactyl.specifications.slot}}'
+        `);
+        console.log("Column 'specs' added successfully.");
+      } catch (err) {
+        console.error("An error occurred while altering the table:", err.message);
+      }
+    } else {
+      console.log("Column 'specs' already exists, skipping ALTER TABLE.");
+    }
+  } else {
+    console.error("Unexpected data type for rows. Expected an array.");
+  }
+});
+
+
+
 
 const getUser = (email) => {
   return new Promise((resolve, reject) => {
