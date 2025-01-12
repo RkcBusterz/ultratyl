@@ -10,161 +10,158 @@
 </head>
 <body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden">
   <!--Navbar start-->
-<nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
-  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-    <div class="relative flex h-16 items-center justify-between">
-      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-        <!-- Mobile menu button -->
-        <button
-          type="button"
-          class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-        >
-          <span
-            class="absolute -inset-0.5"
-            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
-          ></span>
-          <span class="sr-only">Open main menu</span>
-          <svg
-            class="block size-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-            data-slot="icon"
+  <nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button
+            type="button"
+            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-          <svg
-            class="hidden size-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-            data-slot="icon"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="flex shrink-0 items-center"></div>
-        <div class="hidden sm:ml-6 sm:block">
-          <div class="flex space-x-4">
-            <a
-              href="/dash"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              aria-current="page"
-              >Dashboard</a
+            <span
+              class="absolute -inset-0.5"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+            ></span>
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="block size-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
             >
-            <a
-              href="/servers"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >Servers</a
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <svg
+              class="hidden size-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
             >
-            <a
-              href="/account"
-              class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
-              >Account</a
-            >
-            <a
-              href="/createserver"
-              class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
-              >Create</a
-            >
-            <a
-              href="/earn"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >Earn</a
-            >
-            <a
-              href="/shop"
-              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >Shop</a
-            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <a
+                href="/dash"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                aria-current="page"
+                >Dashboard</a
+              >
+              <a
+                href="/servers"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Servers</a
+              >
+              <a
+                href="/account"
+                class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
+                >Account</a
+              >
+              <a
+                href="/createserver"
+                class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 hover:text-white"
+                >Create</a
+              >
+              <a
+                href="/earn"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Earn</a
+              >
+              <a
+                href="/shop"
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Shop</a
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button
-          type="button"
-          class="relative rounded-full bg-black p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-        >
-          <span class="absolute -inset-1.5"></span>
-          <span class="sr-only">View notifications</span>
-          <svg
-            class="size-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-            data-slot="icon"
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <button
+            type="button"
+            class="relative rounded-full bg-black p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-            />
-          </svg>
-        </button>
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <svg
+              class="size-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              data-slot="icon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    class="sm:hidden animate__animated animate__slideInDown hidden"
-    id="mobile-menu"
-  >
-    <div class="space-y-1 px-2 pb-3 pt-2">
-      <a
-        href="/dash"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        aria-current="page"
-        >Dashboard</a
-      >
-      <a
-        href="/account"
-        class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
-        >Account</a
-      >
-      <a
-        href="/createserver"
-        class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
-        >Create</a
-      >
-      <a
-        href="/servers"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Servers</a
-      >
-      <a
-        href="/earn"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Earn</a
-      >
-      <a
-        href="/shop"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Shop</a
-      >
+    <div
+      class="sm:hidden animate__animated animate__slideInDown hidden"
+      id="mobile-menu"
+    >
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <a
+          href="/dash"
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          aria-current="page"
+          >Dashboard</a
+        >
+        <a
+          href="/account"
+          class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
+          >Account</a
+        >
+        <a
+          href="/createserver"
+          class="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
+          >Create</a
+        >
+        <a
+          href="/servers"
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Servers</a
+        >
+        <a
+          href="/earn"
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Earn</a
+        >
+        <a
+          href="/shop"
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Shop</a
+        >
+      </div>
     </div>
-  </div>
-</nav>
-<!--Navbar End-->
+  </nav>
+  <!--Navbar End-->
 
-
-    <!-- Create Server Form start -->
+    <!-- Create Server Form Start -->
     <div class="flex items-center justify-center min-h-screen">
         <div class="bg-black bg-opacity-50 p-6 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-2xl font-bold text-center mb-6 text-white">Create Server</h2>
@@ -174,50 +171,50 @@
                     <input type="text" id="server-name" name="server-name" class="mt-1 p-2 w-full border text-black border-gray-300 rounded-lg" placeholder="Enter server name">
                 </div>
                 <div class="mb-4">
-                    <label for="server-type" class="block text-sm font-medium text-gray-200">Server Type</label>
-                    <select id="server-type" name="server-type" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white bg-black">
-                        <option value="paper">Paper</option>
-                    </select>
+                    <label for="server-cpu" class="block text-sm font-medium text-gray-200">CPU (in %)</label>
+                    <input type="number" id="server-cpu" name="server-cpu" class="mt-1 p-2 w-full border text-black border-gray-300 rounded-lg" placeholder="Enter CPU percentage">
                 </div>
                 <div class="mb-4">
-                    <label for="server-plan" class="block text-sm font-medium text-gray-200">Plan</label>
-                    <select id="server-plan" name="server-plan" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-white bg-black">
-                        <option value="basic">Basic</option>
-                    </select>
+                    <label for="server-ram" class="block text-sm font-medium text-gray-200">RAM (in MB)</label>
+                    <input type="number" id="server-ram" name="server-ram" class="mt-1 p-2 w-full border text-black border-gray-300 rounded-lg" placeholder="Enter RAM size">
                 </div>
-                <div class="mb-4 text-center">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none">
-                        Create Server
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- Create Server Form end -->
- 
-    <script>
-        document.getElementById('create-server-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const serverName = document.getElementById('server-name').value;
-            const serverType = document.getElementById('server-type').value;
-            const serverPlan = document.getElementById('server-plan').value;
-
-            // Fetch server limits
-    
-
-            // Customize server specs based on plan
-            if (serverPlan === 'basic') {
-                memory = 3072; // Basic Plan RAM
-                storage = 5172; // Basic Plan storage
-                cpu = 100;
-            }
-
-            // Call backend to create the server
-            const createResponse = await fetch(`/create?name=${encodeURIComponent(serverName)}&memory=${memory}&cpu=${cpu}&storage=${storage}`);
-
-            const result = await createResponse.text();
-            alert(result); // Show result to the user
-        });
-    </script>
-</body>
-</html>
+                <div class="mb-4">
+                    <label for="server-storage" class="block text-sm font-medium text-gray-200">Storage (in MB)</label>
+                    <input type="number" id="server-storage" name="server-storage" class="mt-1 p-2 w-full border text-black border-gray-300 rounded-lg" placeholder="Enter storage size">
+                  </div>
+                  <div class="mb-4 text-center">
+                      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none">
+                          Create Server
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      <!-- Create Server Form End -->
+   
+      <script>
+          document.getElementById('create-server-form').addEventListener('submit', async function (e) {
+              e.preventDefault();
+              const serverName = document.getElementById('server-name').value;
+              const cpu = document.getElementById('server-cpu').value;
+              const ram = document.getElementById('server-ram').value;
+              const storage = document.getElementById('server-storage').value;
+  
+              try {
+                console.log(cpu)
+                console.log(storage)
+                console.log(name)
+                console.log(ram)
+                  const response = await fetch(`/create?cpu=${parseInt(cpu)}&storage=${parseInt(storage)}&memory=${parseInt(ram)}&name=${encodeURIComponent(serverName)}`)
+  
+                  const result = await response.text();
+                  alert(result); // Show result to the user
+              } catch (error) {
+                  console.error('Error:', error);
+                  alert('Failed to create server.');
+              }
+          });
+      </script>
+  </body>
+  </html>
+  

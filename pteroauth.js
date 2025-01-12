@@ -48,8 +48,6 @@ const createServer = async (server) =>{
 const allocation = Math.floor(Math.random() * 30)
 
 
-if(server.memory <= config.Pterodactyl.specifications.memory && server.cpu <= config.Pterodactyl.specifications.cpu && server.storage <= config.Pterodactyl.specifications.storage){
-
 const data = await fetch(config.Pterodactyl.panel_url+"/api/application/servers", {
   method: "POST",
   headers: {
@@ -88,7 +86,7 @@ const data = await fetch(config.Pterodactyl.panel_url+"/api/application/servers"
 
 const datajson = await data.json()
 return datajson
-}else{return "Your input exceeds our current limits"}
+
 
 }
 

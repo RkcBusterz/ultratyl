@@ -6,7 +6,8 @@ const sqlite3 = require("sqlite3");
 const discordauth = require("./discordauth");
 const pteroauth = require("./pteroauth");
 const cookieParser = require("cookie-parser");
-const config = require("./settings.json")
+const config = require("./settings.json");
+const { getServers } = require('dns');
 const app = express();
 app.use(cookieParser())
 const port = 3000;
@@ -336,14 +337,31 @@ app.get('/create',async (req,res)=>{
   const limits = JSON.parse(user[0].specs)
   const servers = await pteroauth.getServers({id:userid})
   const servercount = servers.length
-  if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0){
+  console.log(servercount)
+  console.log(limits.slot)
+  if(memory > 0 && cpu > 0 && storage > 0 && name.length > 0) {
+    console.log("correct inputs")
   if(servercount < limits.slot){
+    console.log("Server count is ok")
+    var cpu1 = 0;
+    var ram1 = 0;
+    var storage1 = 0;
+    for(var x = 0;x < servers.length;x++){
+      cpu1 = cpu1 + servers[x].attributes.limits.cpu;
+      ram1 = ram1 + servers[x].attributes.limits.memory;
+      storage1 = storage1 + servers[x].attributes.limits.disk;
+    }
+
+    if(cpu1 + parseInt(cpu)<= limits.cpu && ram1 + parseInt(memory) <= limits.ram && storage1 + parseInt(storage)<= limits.storage){
+      console.log("limits are okay")
   pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>{
-    res.send(response)
+    res.send(response);
+    console.log(`Server created successfully.`)
     addServer(response.attributes.id,userid)
-  });
-  }else{res.send("You already own 1 server")}}
-  else {res.send("Invalid values, please check did you forgot name or any other input")}
+  });}else{res.send("Your cant create servers more than your limit")}
+  }else{res.send("You dont have enough slots to create")}
+
+  }else {res.send("Invalid values, please check did you forgot name or any other input")}
   }catch(err){
     console.error(err)
   }
