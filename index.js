@@ -223,6 +223,16 @@ app.get('/account', async(req,res)=>{
   }}catch(err){}
 })
 
+app.get('/shop', async(req,res)=>{
+  try{
+  const session = await checkSession(req.cookies.session_id);
+  if(session){
+    res.sendFile(path.join(__dirname, 'routes', 'shop.html'));
+  }else{
+    res.redirect("/login");
+  }}catch(err){}
+})
+
 
 app.get('/login', async (req, res) => {
   try{
@@ -375,6 +385,13 @@ app.get('/info',async(req,res)=>{
     res.send({panel: config.Pterodactyl.panel_url});
   }catch(err){
     
+  }
+})
+app.get('/shopinfo',async (req,res)=>{
+  try{
+
+  }catch(err){
+
   }
 })
 

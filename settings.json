@@ -23,6 +23,13 @@
 
 "dash":{
     "url" : "http://localhost:3000",
-    "adscript": "alert('hi')"
+    "adscript": "alert('hi')",
+    "shop": {
+        "cpu":3000,
+        "ram":1000,
+        "storage":950
+    }
 }
+
+
 }
