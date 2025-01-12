@@ -209,7 +209,7 @@ try{
 };
 
 const updateUserSpecsAsync = async (sessionId,whichSpec, newSpecs) => {
-  
+  try{
   const userinfo = await getUserBySession(sessionId);
   const coins = userinfo[0].coins;
   const id = userinfo[0].pteroid;
@@ -265,8 +265,11 @@ addOrRemoveCoin(id,config.dash.shop.slot*-1)
 
 
   });
+}catch(err){
+  console.log(err);
+}
+
 };
-updateUserSpecsAsync("53abb2fd7596d41651e4c05a3d9430bd5d216a62c2fdfdfc9a","ram",100)
 
 
 const renewAll = async () =>{
