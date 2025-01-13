@@ -1,0 +1,43 @@
+{
+    "Discord" : {
+    "CLIENT_SECRET": "",
+    "CLIENT_ID": ""
+
+},
+"Pterodactyl" :{
+"panel_url": "",
+"api_key": "",
+"specifications":{
+    "memory": 3072,
+    "cpu": 100,
+    "storage": 5172,
+    "slot":1
+}
+
+},
+
+"coins":{
+    "comment": "The reward is for afk",
+    "reward": 20,
+    "renew": 100,
+    "time": 24,
+    "linkId": 1278414,
+    "linkvertise_token": "",
+    "linkreward": 50
+},
+
+"dash":{
+    "url" : "http://localhost:3000",
+    "adscript": "",
+    "shop": {
+        "cpu":3000,
+        "ram":1000,
+        "storage":950,
+        "slot":5000
+    },
+    "port": 3000,
+    "prefix": ""
+}
+
+
+}
