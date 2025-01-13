@@ -178,7 +178,7 @@
       <div class="text-center">
           <button id="get-coin" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none hidden">Request Coins</button>
           <p class="text-white text-center text-lg mt-6">Wanna earn more? Check out Linkvertise!</p>
-          <a href="https://linkvertise.com/" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none mt-2 inline-block">Visit Linkvertise</a>
+          <a onclick="linkvertise()" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none mt-2 inline-block">Visit Linkvertise</a>
       </div>
   </div>
 </div>
@@ -190,6 +190,28 @@
         const countdownElement = document.getElementById('countdown');
         const getCoinButton = document.getElementById('get-coin');
         const coinCountElement = document.getElementById('coin-count');
+        var userid;
+        var dashUrl
+        function getLinkvertise(){
+          fetch('/info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.linkId !== undefined && data.linkId !== undefined) {
+                      userid = data.linkId;
+                      dashUrl = data.dashboard;
+                      console.log(userid,dashUrl);
+                    } else {
+                        console.error('Invalid response:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching coins:', error);
+                });
+        }
+function linkvertise(){
+  const url = `https://link-to.net/${userid}/${Math.random()*1000}/dynamic?r=${btoa(encodeURI(dashUrl+"/linkvertise"))}`;
+  window.open(url, '_blank');
+}
 
         function fetchCoins() {
             fetch('/coins')
@@ -245,7 +267,7 @@
 
         // Initialize page by fetching coins
         fetchCoins();
-
+        getLinkvertise()
         setInterval(changeButtonPosition, 60000);
         startAFKSystem();
 

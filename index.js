@@ -10,7 +10,7 @@ const config = require("./settings.json");
 const { getServers } = require('dns');
 const app = express();
 app.use(cookieParser())
-const port = 3000;
+const port = config.dash.port;
 const database = new sqlite3.Database("data.db");
 app.use(express.static('routes'));
 try{
@@ -170,7 +170,7 @@ try{
   const userinfo = await discordauth.fetchUser(code);
   console.log(`User info is ${JSON.stringify(userinfo)}`);
   
-  const user = await getUser(userinfo.email)
+  const user = await getUser(`${config.dash.prefix}${userinfo.email}`)
   console.log(`Users in db are ${user.length}`)
   if(user.length == 0){
 
@@ -180,15 +180,15 @@ try{
     const session_id = crypto.randomBytes(25).toString('hex');
   // remove the underscore from username
   const pteroinfo = await pteroauth.addUser({
-    email: `dash${userinfo.email}`,
-    username: `dash${userinfo.username.replace(/_/g, "")}`,
+    email: `${config.dash.prefix}${userinfo.email}`,
+    username: `${config.dash.prefix}${userinfo.username.replace(/_/g, "")}`,
     global_name: userinfo.global_name,
   });
   console.log(pteroinfo);
   insert.run(
     pteroinfo.attributes.id,
-    `dash${userinfo.email}`,
-    `dash${userinfo.username.replace(/_/g, "")}`,
+    `${config.dash.prefix}${userinfo.email}`,
+    `${config.dash.prefix}${userinfo.username.replace(/_/g, "")}`,
     session_id,
     config.Pterodactyl.specifications.cpu,
     config.Pterodactyl.specifications.memory,
@@ -390,7 +390,7 @@ app.get('/create',async (req,res)=>{
     if(cpu1 + parseInt(cpu)<= limits.cpu && ram1 + parseInt(memory) <= limits.ram && storage1 + parseInt(storage)<= limits.storage){
       console.log("limits are okay")
   pteroauth.createServer({memory:memory,cpu:cpu,storage:storage,user: userid,name:name}).then(response=>{
-    res.send(response);
+    res.send(`Server created successfully.`);
     console.log(`Server created successfully.`)
     addServer(response.attributes.id,userid)
   });}else{res.send("Your cant create servers more than your limit")}
@@ -413,7 +413,7 @@ try{
 app.get('/limits',async (req,res)=>{
   userinfo = await getUserBySession(req.cookies.session_id);
   data = JSON.parse(userinfo[0].specs)
-  res.json({cpu: data.cpu,ram: data.ram,storage: data.storage})
+  res.json({cpu: data.cpu,ram: data.ram,storage: data.storage,slot: data.slot})
 })
 app.get('/getuser',async (req,res)=>{
   try{
@@ -507,9 +507,9 @@ app.get('/ads',async(req,res)=>{
 })
 app.get('/info',async(req,res)=>{
   try{
-    res.send({panel: config.Pterodactyl.panel_url});
+    res.send({panel: config.Pterodactyl.panel_url,linkId: config.coins.linkId,dashboard: config.dash.url});
   }catch(err){
-    
+    console.log(err);
   }
 })
 app.get('/shopinfo',async (req,res)=>{
@@ -517,6 +517,19 @@ app.get('/shopinfo',async (req,res)=>{
     res.json({"cpu":config.dash.shop.cpu,"ram":config.dash.shop.ram,"storage":config.dash.shop.storage,"slot":config.dash.shop.slot})
   }catch(err){
 
+  }
+})
+
+app.get('/linkvertise', async(req,res)=>{
+  const code = req.query.hash;
+  const data = await fetch(`https://publisher.linkvertise.com/api/v1/anti_bypassing?token=${config.coins.linkvertise_token}&hash=${code}`)
+  const json = await data.json();
+  if(json.status == true){
+   const user = await getUserBySession(req.cookies.session_id);
+    addOrRemoveCoin(user[0].pteroid,config.coins.linkreward);
+    res.redirect('/earn')
+  }else{
+    res.send("<h1>Hey User! You bypassed the link.</h1>");  
   }
 })
 
