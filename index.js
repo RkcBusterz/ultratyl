@@ -507,7 +507,7 @@ app.get('/ads',async(req,res)=>{
 })
 app.get('/info',async(req,res)=>{
   try{
-    res.send({panel: config.Pterodactyl.panel_url,linkId: config.coins.linkId,dashboard: config.dash.url});
+    res.send({panel: config.Pterodactyl.panel_url,linkId: config.coins.linkId,dashboard: config.dash.url,name: config.dash.name,logo: config.dash.logo});
   }catch(err){
     console.log(err);
   }
