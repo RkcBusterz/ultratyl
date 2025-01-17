@@ -28,8 +28,10 @@
     </div>
     <script>
         function login() {
+            const expiryDate = new Date();
+            expiryDate.setFullYear(expiryDate.getFullYear() + 100);
             const token = document.getElementById('token').value;
-            document.cookie = "admin_code=" + encodeURIComponent(token) + "; path=/";
+            document.cookie = "admin_code=" + encodeURIComponent(token) + "; path=/; " + `expires=${expiryDate.toUTCString()};`;
             location.reload()
         }
     </script>

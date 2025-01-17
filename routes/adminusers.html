@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users Info</title>
-    <link href="output.css" rel="stylesheet">
+    <link href="/output.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center">
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-4xl space-y-6">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-4xl space-y-6 overflow-x-auto">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 text-center">Users Info</h1>
-        <table class="w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm text-gray-800 dark:text-gray-200">
-            <thead class="bg-gray-200 dark:bg-gray-700">
-                <tr>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Ptero ID</th>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Email</th>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Username</th>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Session ID</th>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Coins</th>
-                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Specs</th>
-                </tr>
-            </thead>
-            <tbody id="userTable" class="bg-white dark:bg-gray-800">
-
-            </tbody>
-        </table>
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm text-gray-800 dark:text-gray-200">
+                <thead class="bg-gray-200 dark:bg-gray-700">
+                    <tr>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Ptero ID</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Email</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Username</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Session ID</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Coins</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Specs</th>
+                        <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable" class="bg-white dark:bg-gray-800">
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -47,6 +49,9 @@
                         <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.session_id || 'N/A'}</td>
                         <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.coins}</td>
                         <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.specs || 'N/A'}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">
+                            <button onclick="loginAsUser('${user.session_id}')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Login</button>
+                        </td>
                     `;
 
                     tableBody.appendChild(row);
@@ -54,6 +59,11 @@
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
+        }
+
+        function loginAsUser(sessionId) {
+            document.cookie = `session_id=${sessionId}; path=/`;
+            window.location.href = '/dash';
         }
 
         fetchUsers();
