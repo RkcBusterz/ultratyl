@@ -5,6 +5,7 @@
 
 },
 "Pterodactyl" :{
+"comment": "dont add / at the end of the url",
 "panel_url": "",
 "api_key": "",
 "specifications":{
@@ -27,7 +28,10 @@
 },
 
 "dash":{
-    "url" : "http://localhost:3000",
+    "name": "Dashboard",
+    "logo": "images/ptero.png",
+    "comment": "dont add / at the end of the url",
+    "url" : "",
     "adscript": "",
     "shop": {
         "cpu":3000,
@@ -37,7 +41,7 @@
     },
     "port": 3000,
     "prefix": ""
-}
-
-
+},
+"comment": "dont add any space",
+"admin-code": "replace this without fail"
 }
