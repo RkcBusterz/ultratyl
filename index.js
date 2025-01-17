@@ -442,7 +442,13 @@ app.get('/createserver', async (req,res)=>{
   }
   }catch(err){}
 })
-
+app.get('/admin',(req,res)=>{
+  if (req.cookies.admin_code == config['admin-code']){
+      res.sendFile(path.join(__dirname,'routes','admin.html'))
+  }else{
+    res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
+  }
+})
 
 app.get('/servers',async(req,res)=>{
   try{

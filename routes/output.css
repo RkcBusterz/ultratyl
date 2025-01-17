@@ -625,76 +625,20 @@ video {
   left: 0px;
 }
 
-.left-28 {
-  left: 7rem;
+.left-3 {
+  left: 0.75rem;
 }
 
 .right-0 {
   right: 0px;
 }
 
-.top-32 {
-  top: 8rem;
-}
-
-.left-20 {
-  left: 5rem;
-}
-
-.left-10 {
-  left: 2.5rem;
-}
-
-.top-40 {
-  top: 10rem;
-}
-
-.top-44 {
-  top: 11rem;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.top-48 {
-  top: 12rem;
-}
-
-.left-64 {
-  left: 16rem;
-}
-
-.left-96 {
-  left: 24rem;
-}
-
-.top-52 {
-  top: 13rem;
+.top-28 {
+  top: 7rem;
 }
 
 .top-56 {
   top: 14rem;
-}
-
-.left-8 {
-  left: 2rem;
-}
-
-.left-3 {
-  left: 0.75rem;
-}
-
-.top-3 {
-  top: 0.75rem;
-}
-
-.top-2 {
-  top: 0.5rem;
-}
-
-.top-28 {
-  top: 7rem;
 }
 
 .m-0 {
@@ -734,16 +678,16 @@ video {
   margin-top: 1.5rem;
 }
 
-.mr-10 {
-  margin-right: 2.5rem;
-}
-
 .block {
   display: block;
 }
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .flex {
@@ -775,6 +719,10 @@ video {
   height: 8rem;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .h-auto {
   height: auto;
 }
@@ -783,20 +731,12 @@ video {
   height: 100vh;
 }
 
-.h-96 {
-  height: 24rem;
-}
-
-.h-10 {
-  height: 2.5rem;
-}
-
-.min-h-96 {
-  min-height: 24rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .w-5\/6 {
@@ -809,14 +749,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-10 {
-  width: 2.5rem;
-}
-
-.w-32 {
-  width: 8rem;
 }
 
 .min-w-40 {
@@ -979,8 +911,9 @@ video {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
 }
 
-.bg-current {
-  background-color: currentColor;
+.bg-blue-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
 }
 
 .bg-green-500 {
@@ -1000,11 +933,6 @@ video {
 
 .bg-transparent {
   background-color: transparent;
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-10 {
@@ -1031,20 +959,16 @@ video {
   --tw-bg-opacity: 0.75;
 }
 
+.bg-\[url\(\'\'\)\] {
+  background-image: url('');
+}
+
 .bg-\[url\(\'images\/image1\.jpg\'\)\] {
   background-image: url('images/image1.jpg');
 }
 
 .bg-\[url\(\'wallpaper\.webp\'\)\] {
   background-image: url('wallpaper.webp');
-}
-
-.bg-\[url\(\'images\/image\'\)\] {
-  background-image: url('images/image');
-}
-
-.bg-\[url\(\'\'\)\] {
-  background-image: url('');
 }
 
 .bg-cover {
@@ -1196,6 +1120,16 @@ video {
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+
+.text-green-400 {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity, 1));
+}
+
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
 }
 
 .text-red-500 {
@@ -1414,32 +1348,24 @@ video {
     margin-left: 1rem;
   }
 
-  .lg\:mt-0 {
-    margin-top: 0px;
-  }
-
-  .lg\:mr-10 {
-    margin-right: 2.5rem;
-  }
-
-  .lg\:mr-1 {
-    margin-right: 0.25rem;
-  }
-
   .lg\:mr-12 {
     margin-right: 3rem;
+  }
+
+  .lg\:mt-0 {
+    margin-top: 0px;
   }
 
   .lg\:h-32 {
     height: 8rem;
   }
 
-  .lg\:w-1\/5 {
-    width: 20%;
-  }
-
   .lg\:w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:w-1\/5 {
+    width: 20%;
   }
 
   .lg\:w-32 {
