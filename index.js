@@ -455,33 +455,41 @@ app.get('/createserver', async (req,res)=>{
   }catch(err){}
 })
 app.get('/admin',(req,res)=>{
+  try{
   if (req.cookies.admin_code == config['admin-code']){
       res.sendFile(path.join(__dirname,'routes','admin.html'))
   }else{
     res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
   }
+}catch{}
 })
 app.get('/admin/coinsadder',(req,res)=>{
+  try{
   if (req.cookies.admin_code == config['admin-code']){
       res.sendFile(path.join(__dirname,'routes','admincoins.html'))
   }else{
     res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
   }
+}catch{}
 })
 app.get('/admin/users',(req,res)=>{
+  try{
   if (req.cookies.admin_code == config['admin-code']){
       res.sendFile(path.join(__dirname,'routes','adminusers.html'))
   }else{
     res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
   }
+}catch{}
 })
 app.get('/allusers',async (req,res)=>{
+  try{
   if (req.cookies.admin_code == config['admin-code']){
       users = await getAllUser()
       res.send(users)
   }else{
     res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
   }
+}catch{}
 })
 
 
