@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="ads.js"></script>
+<style>
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+</style>
 </head>
-<body class="bg-black h-screen w-screen bg-cover bg-center bdg-[url('wallpaper.webp')] bg-fixed">
-
+<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('')] bg-fixed overflow-x-hidden">
+  <div class="container mx-auto w-full overflow-hidden"></div>
   <!--Navbar start-->
 <nav class="bg-purple-950 bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -164,7 +169,33 @@
 </nav>
 <!--Navbar End-->
 
-<div class="relative min-h-96 w-full bg-[url('images/image1.jpg')] bg-cover bg-center mt-0 overflow-hidden" >
+<div class="bg-[url('images/image1.jpg')] w-full h-96 bg-center bg-cover m-0 flex flex-col lg:flex-row items-center justify-between">
+  <div class="lg:w-1/2 text-center lg:text-left p-4">
+    <h1 class="text-white text-5xl top-28 left-3 absolute">
+      Welcome to 
+      <span id="name"></span>!
+    </h1>
+    <p class="text-white absolute top-56 left-3">Create a free server here and enjoy with your friends <br> and community</p>
+  </div>
+
+  <img src="" id="logo" srcset="" class="w-32 h-32 lg:w-32 lg:h-32 object-cover mt-4 lg:mt-0 lg:ml-4 lg:mr-12">
+  <script>
+    async function op() {
+      const response = await fetch('/info');
+      const data = await response.json();
+      return data;
+    }
+  
+    async function logOp() {
+      const result = await op();
+      document.getElementById('name').textContent = result.name;
+      document.getElementById('logo').setAttribute('src',result.logo);
+    }
+  
+    logOp(); 
+  </script>
+  
+</div>
 
 <!-- Content Section -->
 <div class="w-screen mt-10 flex justify-center">
