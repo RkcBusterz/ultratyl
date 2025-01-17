@@ -10,9 +10,9 @@
     <script src="ads.js"></script>
 </head>
 
-<body class="bg-black h-screen w-screen bg-cover bg-center bg-[url('wallpaper.webp')] bg-fixed overflow-hidden">
+<body class="bg-black h-screen w-screen bg-cover bg-center  bg-fixed overflow-hidden">
    <!--Navbar start-->
-<nav class="bg-black bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
+<nav class="bg-purple-950 bg-opacity-75 sm:bg-opacity-75 md:bg-opacity-100 lg:bg-opacity-100">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -168,7 +168,7 @@
 
 <!-- Earning Page Start -->
 <div class="flex items-center justify-center min-h-screen">
-  <div class="bg-black bg-opacity-50 p-6 rounded-lg shadow-lg w-full max-w-md">
+  <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-lg w-full max-w-md">
       <h2 class="text-2xl font-bold text-center mb-6 text-white">Earning Page</h2>
       <div class="mb-4">
           <p class="text-white text-center text-xl mb-4">Earn coins by staying active!</p>
@@ -248,22 +248,7 @@ function linkvertise(){
             getCoinButton.style.top = `${randomY}%`;
         }
 
-        function requestCoin() {
-            fetch('/getcoins')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Coins successfully added!');
-                        fetchCoins(); 
-                    } else {
-                   fetchCoins()
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while requesting coins.');
-                });
-        }
+        function _0x41d6(){var _0x104b0a=['228834DKBheK','10eBMKSS','583617eFBJtW','then','506VUlCWl','1284080okmCYD','1975797HPQrHs','json','/getcoins','370ZfuWdZ','16eeiIFk','942200zawpnR','8748CdhddC','success','Coins\x20successfully\x20added!','10734OPVlgi','catch','An\x20error\x20occurred\x20while\x20requesting\x20coins.','Error:','error','4onVHON'];_0x41d6=function(){return _0x104b0a;};return _0x41d6();}(function(_0x1bbd45,_0x1fad7e){var _0x19c357=_0x94e4,_0x12481d=_0x1bbd45();while(!![]){try{var _0x1f361c=-parseInt(_0x19c357(0x19b))/0x1+-parseInt(_0x19c357(0x19a))/0x2*(-parseInt(_0x19c357(0x19d))/0x3)+-parseInt(_0x19c357(0x18b))/0x4+-parseInt(_0x19c357(0x18f))/0x5*(parseInt(_0x19c357(0x195))/0x6)+parseInt(_0x19c357(0x191))/0x7*(parseInt(_0x19c357(0x190))/0x8)+-parseInt(_0x19c357(0x18c))/0x9*(-parseInt(_0x19c357(0x19c))/0xa)+-parseInt(_0x19c357(0x19f))/0xb*(-parseInt(_0x19c357(0x192))/0xc);if(_0x1f361c===_0x1fad7e)break;else _0x12481d['push'](_0x12481d['shift']());}catch(_0x5cc8ad){_0x12481d['push'](_0x12481d['shift']());}}}(_0x41d6,0x37ef1));function _0x94e4(_0x25ef4e,_0x7574c7){var _0x41d65d=_0x41d6();return _0x94e4=function(_0x94e4d4,_0x4d3f57){_0x94e4d4=_0x94e4d4-0x18b;var _0x368bd5=_0x41d65d[_0x94e4d4];return _0x368bd5;},_0x94e4(_0x25ef4e,_0x7574c7);}function requestCoin(){var _0x4213b2=_0x94e4;fetch(_0x4213b2(0x18e))[_0x4213b2(0x19e)](_0x4aefab=>_0x4aefab[_0x4213b2(0x18d)]())[_0x4213b2(0x19e)](_0x48ac2b=>{var _0x13e2c7=_0x4213b2;_0x48ac2b[_0x13e2c7(0x193)]?(alert(_0x13e2c7(0x194)),fetchCoins()):fetchCoins();})[_0x4213b2(0x196)](_0x2c2296=>{var _0x3267b9=_0x4213b2;console[_0x3267b9(0x199)](_0x3267b9(0x198),_0x2c2296),alert(_0x3267b9(0x197));});}
 
         // Initialize page by fetching coins
         fetchCoins();
