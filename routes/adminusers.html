@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Info</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-4xl space-y-6">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 text-center">Users Info</h1>
+        <table class="w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm text-gray-800 dark:text-gray-200">
+            <thead class="bg-gray-200 dark:bg-gray-700">
+                <tr>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Ptero ID</th>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Email</th>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Username</th>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Session ID</th>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Coins</th>
+                    <th class="border border-gray-300 dark:border-gray-700 px-4 py-2">Specs</th>
+                </tr>
+            </thead>
+            <tbody id="userTable" class="bg-white dark:bg-gray-800">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('/allusers');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                const users = await response.json();
+                const tableBody = document.getElementById('userTable');
+
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.className = "border-t border-gray-300 dark:border-gray-700";
+
+                    row.innerHTML = `
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.pteroid || 'N/A'}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.email || 'N/A'}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.user || 'N/A'}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.session_id || 'N/A'}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.coins}</td>
+                        <td class="border border-gray-300 dark:border-gray-700 px-4 py-2 text-center">${user.specs || 'N/A'}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+
+        fetchUsers();
+    </script>
+</body>
+</html>

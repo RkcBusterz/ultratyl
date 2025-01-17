@@ -68,7 +68,13 @@ database.all(`PRAGMA table_info(users);`, (err, rows) => {
   }
 });
 
-
+const getAllUser = () => {
+  return new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users",(err, rows) => {
+      resolve(rows)
+    });
+  });
+};
 
 
 const getUser = (email) => {
@@ -78,7 +84,13 @@ const getUser = (email) => {
     });
   });
 };
-
+const getUserByUsername = (username) => {
+  return new Promise((resolve, reject) => {
+    database.all("SELECT * FROM users WHERE user = ?", [username], (err, rows) => {
+      resolve(rows)
+    });
+  });
+};
 const getUserBySession = (session) => {
   try{
   return new Promise((resolve, reject) => {
@@ -449,6 +461,29 @@ app.get('/admin',(req,res)=>{
     res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
   }
 })
+app.get('/admin/coinsadder',(req,res)=>{
+  if (req.cookies.admin_code == config['admin-code']){
+      res.sendFile(path.join(__dirname,'routes','admincoins.html'))
+  }else{
+    res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
+  }
+})
+app.get('/admin/users',(req,res)=>{
+  if (req.cookies.admin_code == config['admin-code']){
+      res.sendFile(path.join(__dirname,'routes','adminusers.html'))
+  }else{
+    res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
+  }
+})
+app.get('/allusers',async (req,res)=>{
+  if (req.cookies.admin_code == config['admin-code']){
+      users = await getAllUser()
+      res.send(users)
+  }else{
+    res.sendFile(path.join(__dirname,'routes','adminlogin.html'))
+  }
+})
+
 
 app.get('/servers',async(req,res)=>{
   try{
@@ -459,6 +494,19 @@ app.get('/servers',async(req,res)=>{
     res.redirect("/login");
   }
 }catch(err){}
+})
+app.get('/addcoin',async(req,res)=>{
+  try{
+    if(req.cookies.admin_code == config['admin-code']){
+    user = await getUserByUsername(req.query.username)
+    console.log(user[0].pteroid)
+    addOrRemoveCoin(user[0].pteroid,parseInt(req.query.coins)).then(data=>res.send("successfully added coins")).catch(data=>res.send("Unable to add coins"))
+  }else{
+    res.status(401).send("Unauthorised User!")
+  }
+  }catch{
+
+  }
 })
 
 app.get('/delete', async (req, res) => {
